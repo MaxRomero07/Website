@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Maxime Najac</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Exo+2:wght@300;400;500;600;700&family=Audiowide&display=swap" rel="stylesheet">
+    <link href="tooplate-neural-style.css" rel="stylesheet">
+</head>
+<body>
+    <canvas id="neural-bg"></canvas>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo-container">
+                <!-- Logo -->
+                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- cercles -->
+                    <circle cx="50" cy="20" r="8" fill="none" stroke="#00ffff" stroke-width="2"/>
+                    <circle cx="25" cy="50" r="8" fill="none" stroke="#ff00ff" stroke-width="2"/>
+                    <circle cx="75" cy="50" r="8" fill="none" stroke="#ff00ff" stroke-width="2"/>
+                    <circle cx="50" cy="80" r="8" fill="none" stroke="#ffff00" stroke-width="2"/>
+                    <!-- connexions -->
+                    <line x1="50" y1="28" x2="25" y2="42" stroke="#00ffff" stroke-width="1" opacity="0.6"/>
+                    <line x1="50" y1="28" x2="75" y2="42" stroke="#00ffff" stroke-width="1" opacity="0.6"/>
+                    <line x1="25" y1="58" x2="50" y2="72" stroke="#ff00ff" stroke-width="1" opacity="0.6"/>
+                    <line x1="75" y1="58" x2="50" y2="72" stroke="#ff00ff" stroke-width="1" opacity="0.6"/>
+                    <!-- noeud central -->
+                    <circle cx="50" cy="50" r="5" fill="#00ffff"/>
+                    <line x1="50" y1="28" x2="50" y2="45" stroke="#00ffff" stroke-width="1" opacity="0.6"/>
+                    <line x1="50" y1="55" x2="50" y2="72" stroke="#ffff00" stroke-width="1" opacity="0.6"/>
+                    <line x1="33" y1="50" x2="45" y2="50" stroke="#ff00ff" stroke-width="1" opacity="0.6"/>
+                    <line x1="55" y1="50" x2="67" y2="50" stroke="#ff00ff" stroke-width="1" opacity="0.6"/>
+                </svg>
+                <span class="logo-text">M. NAJAC</span>
+            </a>
+            
+            <div class="mobile-menu-toggle" id="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul>
+                  <li><a href="#home">ACCUEIL</a></li>
+                  <li><a href="#about">À PROPOS</a></li>
+                  <li><a href="#projects">PROJETS</a></li>
+                  <li><a href="#skills">Cours particuliers</a></li>
+                  <li><a href="#contact">CONTACT</a></li>
+                  <!-- Choix de langue -->
+                  <li class="language-switch">
+                    <a href="#" data-lang="fr" title="Français">
+                      <img src="assets/fr.png" alt="Français" class="flag-icon">
+                    </a>
+                    <span class="separator">|</span>
+                    <a href="#" data-lang="en" title="English">
+                      <img src="assets/en.png" alt="English" class="flag-icon">
+                    </a>
+                  </li>
+                </ul>
+              </div>              
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="Maxime NAJAC">Maxime NAJAC</h1>
+            <p class="subtitle">Ingénieur, enseignant et auteur d’ouvrages scientifiques</p>
+        </div>
+        <a href="#about" class="scroll-btn">
+            <div class="scroll-btn-inner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                </svg>
+            </div>
+        </a>
+    </section>
+
+    <section id="about" class="fade-in">
+        <h2 class="section-title">À propos</h2>
+        <div class="about-container">
+            <div class="about-image">
+                <div class="profile-img-wrapper">
+                    <div class="profile-img">
+                        <span>IA</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-content">
+                <h3>Ingénierie, Enseignement et Développement de l’IA</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px;">
+                    Ingénieur, diplômé d'une grande école et enseignant en mathématiques, physique et ingénierie dans l’enseignement supérieur (université et CPGE), 
+                    je mène également des projets scientifiques dans le secteur privé, avec une spécialisation en IA. 
+                    J’accompagne par ailleurs des élèves et étudiants via des cours particuliers personnalisés, 
+                    leur permettant de renforcer leurs compétences et de préparer efficacement examens et concours.
+                </p>
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);">
+                    Au sein de l’Éducation nationale, je contribue au développement de parcours, classes et options dédiées à l’intelligence artificielle, 
+                    afin de préparer l’émergence d’une véritable filière IA dans les lycées et de sensibiliser les nouvelles générations 
+                    aux enjeux technologiques de demain.
+                </p>
+                
+
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Projets</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Années d’expérience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Partenaires</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="fade-in">
+        <h2 class="section-title">Projets</h2>
+        <div class="projects-grid">
+            <a href="publications.html" style="text-decoration: none; color: inherit;">
+            <div class="glass-card project-card">
+                <h3 style="color: var(--primary);">Publications scientifiques</h3>
+                <p>
+                    Publications à vocation pédagogique et scientifique, couvrant à la fois l’enseignement des mathématiques, de la physique et de l’ingénierie, et les travaux de recherche en IA.
+                    Ces publications incluent des ouvrages édités, des articles, des supports pédagogiques, des études de cas et des projets pratiques, visant à transmettre des connaissances solides
+                    tout en explorant les applications concrètes de l’IA dans l’éducation et l’industrie.
+                </p>                
+            </div>
+        </a>
+        <a href="projets-ia-peda.html" style="text-decoration: none; color: inherit;">
+            <div class="glass-card project-card">
+                <h3 style="color: var(--secondary);">Projets IA pédagogiques</h3>
+                <p>
+                    Conception et développement de projets éducatifs autour de l’intelligence artificielle, en collaboration avec des experts tels que Luc Julia, et Laurent Lafforgue.
+                    Ces initiatives proposent des modules interactifs, ateliers et expériences pratiques pour les lycées et l’enseignement supérieur, permettant aux étudiants de
+                    découvrir et expérimenter l’IA tout en favorisant la programmation, la modélisation et l’esprit d’innovation.
+                </p>
+                
+            </div>
+        </a>
+        <a href="projets-raytracing.html" style="text-decoration: none; color: inherit;">
+            <div class="glass-card project-card">
+                <h3 style="color: var(--accent);">Raytracing en collaboration avec l'Interactive Graphics Systems Group</h3>
+<p>
+    Travaux de recherche combinant raytracing et géométrie algébrique, visant à explorer de nouvelles méthodes de rendu 
+    d’images réalistes et de simulation de la lumière. Ces projets utilisent des techniques avancées de calcul géométrique 
+    pour modéliser des surfaces complexes et optimiser les algorithmes de rendu, offrant ainsi une expérience visuelle immersive 
+    et des perspectives innovantes pour l’enseignement et la visualisation scientifique.
+</p>
+
+            </div>
+        </a>
+            <a href="projets-ia-ope.html" style="text-decoration: none; color: inherit;">
+            <div class="glass-card project-card">
+                <h3 style="color: var(--primary);">IA & Recherche opérationnelle</h3>
+                <p>Travaux de recherche appliquant l’IA à la recherche médicale et à la gestion hospitalière, 
+                    avec pour objectif d’améliorer le diagnostic, l’organisation des soins et la prise de décision clinique. 
+                    Ces projets mobilisent l’analyse prédictive, la visualisation de données en direct et des modèles d’optimisation, 
+                    afin de soutenir les équipes médicales dans des domaines variés allant de l’imagerie et la chirurgie assistée 
+                    jusqu’à la coordination des parcours de soins, ouvrant la voie à de nouvelles pratiques innovantes et interdisciplinaires.
+                    </p>
+            </div>
+        </a>
+        <a href="projets-bitumen.html" style="text-decoration: none; color: inherit;">
+            <div class="glass-card project-card">
+                <h3 style="color: var(--primary);">Étude rhéologique du bitume irradié en collaboration avec l'IES</h3>
+                <p>
+                    Cette étude explore les propriétés du bitume utilisé pour le conditionnement des déchets radioactifs, 
+            à l’aide d’ondes ultrasonores. Elle se concentre sur la propagation des ondes dans différents échantillons, 
+            dans le but de mieux comprendre les transformations internes du matériau sous irradiation. 
+            Une approche innovante et non invasive permet de révéler des phénomènes fascinants et complexes à l’échelle microscopique.
+                </p>
+            </div>
+        </a>        
+        </a>
+            <a href="projets-ia.html" style="text-decoration: none; color: inherit;">
+            <div class="glass-card project-card">
+                <h3 style="color: var(--accent);">Hydrodynamique d'intéraction vent-vague en collaboration avec le L2C</h3>
+                <p>
+                    Travaux de recherche portant sur l’étude de l’effet de la viscosité de l’eau dans la croissance des ondes de gravité générées par le vent. 
+                    L’approche prolonge le modèle classique de Miles en intégrant les phénomènes visqueux, afin de mieux comprendre le transfert d’énergie entre 
+                    l’air et l’eau. Les méthodes combinent une analyse hydrodynamique rigoureuse et des calculs numériques pour caractériser l’influence de la 
+                    viscosité selon la longueur d’onde et l’intensité du vent, offrant de nouvelles perspectives pour la modélisation réaliste des vagues océaniques.
+                </p>
+                
+            </div>
+        </a>
+        </div>
+    </section>
+
+    <section id="skills" class="fade-in">
+        <h2 class="section-title">Cours particuliers</h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; margin: 20px auto; max-width: 800px; text-align: center; color: var(--text-secondary);">
+            Passionné par la transmission des savoirs, je m’investis pleinement dans la réussite des élèves et étudiants. 
+            J’accompagne chacun selon ses besoins, que ce soit pour consolider les bases, approfondir les connaissances 
+            ou préparer efficacement examens et concours.<br>
+            <strong>Choisissez la matière que vous souhaitez travailler avec moi et commençons dès aujourd’hui !</strong>
+        </p>
+        
+        <div class="skills-container">
+            <a href="cours-maths.html" class="skill-node"><span>Maths</span></a>
+            <a href="cours-physique.html" class="skill-node"><span>Physique</span></a>
+            <a href="cours-ingenierie.html" class="skill-node"><span>Ingénierie</span></a>
+            <a href="cours-info.html" class="skill-node"><span>Informatique</span></a>
+          </div>
+        <div class="locations-container">
+            <h3 class="locations-title">Mes principales localisations</h3>
+            <div class="locations-list">
+              <div class="location-card">
+                <h4>Paris 75001 à 75020</h4>
+                <p>Et périphérie proche uniquement</p>
+              </div>
+              <div class="location-card">
+                <h4>Montpellier 34000</h4>
+                <p>Centre et périphérie proche uniquement</p>
+              </div>
+              <div class="location-card">
+                <h4>Toulouse 31000</h4>
+                <p>Centre et périphérie éloignée</p>
+              </div>
+              <div class="location-card"> 
+                <h4>Plateau de Saclay 91190–91400</h4>
+                <p>Campus</p>
+              </div>
+            </div>
+          </div>
+                 
+    </section>
+    
+
+    <section id="contact" class="fade-in">
+        <h2 class="section-title">Contact</h2>
+      
+        <div class="contact-container">
+          <!-- Formulaire à gauche -->
+          <form class="contact-form glass-card">
+            <div class="form-group">
+              <input type="text" placeholder="Votre nom et prénom" required>
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Votre email" required>
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Objet du message" required>
+            </div>
+            <div class="form-group">
+              <textarea rows="5" placeholder="Votre message" required></textarea>
+            </div>
+            <button type="submit" class="neural-btn">Envoyer</button>
+          </form>
+      
+          <!-- Photo à droite -->
+          <div class="contact-photo">
+            <img src="assets/profile_photo.png" alt="Photo de moi">
+          </div>
+        </div>
+      </section>
+      
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#projects">Projets</a></li>
+                    <li><a href="#skills">Cours particuliers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Cours particuliers</a></li>
+                    <li><a href="#">Projets pédagogiques</a></li>
+                    <li><a href="#">Projets secteur privé/public</a></li>
+                    <li><a href="#">Consulting</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Réseaux</h3>
+                <p>Construisons quelque chose d’exceptionnel ensemble</p>
+                <div class="social-links">
+                    <a href="https://github.com/MaxRomero07" target="_blank">
+                        <img src="assets/github.png" alt="GitHub" style="width: 30px; height: 30px; margin-right: 10px;">
+                    </a>
+                    <a href="https://www.linkedin.com/in/maxime-n-456a5a292/" target="_blank">
+                        <img src="assets/linkedin.png" alt="LinkedIn" style="width: 30px; height: 30px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025. Tous droits réservés. Site développé par Maxime NAJAC</a></p>
+        </div>
+    </footer>
+
+    <script src="tooplate-neural-scripts.js"></script>
+</body>
+</html>

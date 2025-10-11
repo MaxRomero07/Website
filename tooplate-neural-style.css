@@ -1,0 +1,1370 @@
+/* Déclaration de l'encodage du fichier CSS */
+@charset "utf-8";
+
+/* Début du document CSS */
+/* CSS Document */
+
+/* Réinitialisation globale des marges, paddings et box-sizing */
+* {
+    margin: 0; /* Supprime toutes les marges par défaut */
+    padding: 0; /* Supprime tous les paddings par défaut */
+    box-sizing: border-box; /* Inclut padding et border dans la taille totale des éléments */
+}
+
+/* Définition des variables CSS pour les couleurs et styles globaux */
+:root {
+    --primary: #00ffff; /* Couleur principale cyan */
+    --secondary: #ff00ff; /* Couleur secondaire magenta */
+    --accent: #ffff00; /* Couleur accent jaune */
+    --bg-dark: #0a0a0a; /* Couleur de fond sombre */
+    --bg-glass: rgba(255, 255, 255, 0.05); /* Fond transparent style "glass" */
+    --text-primary: #ffffff; /* Couleur du texte principal */
+    --text-secondary: #b0b0b0; /* Couleur du texte secondaire */
+}
+
+/* Styles généraux du body */
+body {
+    font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, sans-serif; /* Police principale */
+    background-color: var(--bg-dark); /* Couleur de fond sombre */
+    color: var(--text-primary); /* Couleur du texte principal */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+    position: relative; /* Position relative pour pouvoir placer des pseudo-éléments */
+    line-height: 1.6; /* Hauteur de ligne globale */
+    -webkit-font-smoothing: antialiased; /* Lissage des polices sur Webkit */
+    -moz-osx-font-smoothing: grayscale; /* Lissage des polices sur Firefox macOS */
+}
+
+/* Pseudo-élément pour effet de grille ou texture sur le fond */
+body::before {
+    content: ''; /* Nécessaire pour afficher le pseudo-élément */
+    position: fixed; /* Fixé par rapport à la fenêtre */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Recouvre tout l'écran */
+    background: repeating-linear-gradient(
+        0deg, /* Dégradé vertical */
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 255, 0.03) 2px,
+        rgba(0, 255, 255, 0.03) 4px
+    ); /* Crée des lignes fines cyan très légères */
+    pointer-events: none; /* N'empêche pas l'interaction avec la page */
+    z-index: 1; /* Position derrière les éléments principaux */
+}
+
+/* Style pour les paragraphes */
+p {
+    line-height: 1.7; /* Hauteur de ligne légèrement plus grande pour la lisibilité */
+}
+
+/* Canvas pour fond de type "réseau neuronal" */
+#neural-bg {
+    position: fixed; /* Fixé à l'écran */
+    top: 0;
+    left: 0;
+    width: 100%; /* Pleine largeur */
+    height: 100%; /* Pleine hauteur */
+    z-index: -1; /* Derrière tous les éléments */
+    opacity: 0.3; /* Légèrement transparent */
+}
+
+/* NAVIGATION */
+
+/* Styles généraux de la barre de navigation */
+nav {
+    position: fixed; /* Fixée en haut de l'écran */
+    top: 0;
+    width: 100%; /* Barre pleine largeur */
+    padding: 15px 50px; /* Espace interne */
+    background: rgba(10, 10, 10, 0.9); /* Fond semi-transparent sombre */
+    backdrop-filter: blur(10px); /* Effet flou derrière la barre */
+    z-index: 1000; /* Toujours au-dessus des autres éléments */
+    transition: all 0.3s ease; /* Animation douce pour les changements */
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2); /* Ligne cyan subtile en bas */
+}
+
+/* Style de nav après défilement */
+nav.scrolled {
+    padding: 10px 50px; /* Réduction du padding au scroll */
+    background: rgba(10, 10, 10, 0.98); /* Fond plus opaque */
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.1); /* Ombre légère cyan */
+}
+
+/* Conteneur interne pour aligner les éléments de la nav */
+.nav-container {
+    display: flex; /* Flexbox */
+    justify-content: space-between; /* Espace entre les éléments */
+    align-items: center; /* Alignement vertical centré */
+    max-width: 1400px; /* Largeur maximale */
+    margin: 0 auto; /* Centré horizontalement */
+}
+
+/* LOGO */
+
+/* Conteneur du logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espace entre le logo et le texte */
+    text-decoration: none; /* Supprime soulignement si lien */
+    transition: all 0.3s ease; /* Animation douce au survol */
+}
+
+/* Effet au survol du logo */
+.logo-container:hover {
+    transform: scale(1.05); /* Agrandit légèrement le logo */
+}
+
+/* Taille du SVG du logo */
+.logo-svg {
+    width: 50px;
+    height: 50px;
+    position: relative; /* Pour positionner des éléments internes si besoin */
+}
+
+/* Style du texte du logo */
+.logo-text {
+    font-family: 'Audiowide', sans-serif; /* Police stylisée */
+    font-size: 1.5rem;
+    font-weight: 400;
+    background: linear-gradient(90deg, var(--primary), var(--secondary)); /* Dégradé cyan-magenta */
+    -webkit-background-clip: text; /* Pour que le texte prenne la couleur du dégradé */
+    -webkit-text-fill-color: transparent; /* Rend le texte transparent pour afficher le dégradé */
+    background-clip: text; /* Compatibilité standard */
+    letter-spacing: 3px; /* Espacement entre lettres */
+    text-transform: uppercase; /* Majuscules */
+}
+
+/* MENU DECORATIF */
+
+/* Conteneur du menu pour ajouter des lignes décoratives */
+.nav-menu {
+    position: relative; /* Nécessaire pour pseudo-éléments */
+}
+
+/* Lignes décoratives avant et après le menu */
+.nav-menu::before,
+.nav-menu::after {
+    content: ''; /* Nécessaire pour pseudo-éléments */
+    position: absolute;
+    height: 1px; /* Épaisseur de la ligne */
+    width: 50px; /* Longueur initiale */
+    background: linear-gradient(90deg, transparent, var(--primary)); /* Dégradé transparent → cyan */
+    top: 50%; /* Centré verticalement */
+    transform: translateY(-50%); /* Ajustement vertical précis */
+}
+
+/* Ligne à gauche du menu */
+.nav-menu::before {
+    left: -60px; /* Décalage à gauche */
+}
+
+/* Ligne à droite du menu */
+.nav-menu::after {
+    right: -60px; /* Décalage à droite */
+    background: linear-gradient(90deg, var(--primary), transparent); /* Dégradé inversé */
+}
+
+/* Liste du menu */
+nav ul {
+    list-style: none; /* Supprime les puces */
+    display: flex; /* Menu horizontal */
+    gap: 40px; /* Espace entre les items */
+}
+
+/* Liens du menu */
+nav a {
+    font-family: 'Audiowide', sans-serif; /* Police stylisée */
+    color: var(--text-primary); /* Couleur texte blanche */
+    text-decoration: none; /* Supprime soulignement */
+    position: relative; /* Pour pseudo-éléments ::after */
+    transition: all 0.3s ease; /* Animation douce */
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding: 5px 0; /* Espace vertical */
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+/* Ligne animée sous les liens au survol */
+nav ul a::after {
+    content: ''; /* Nécessaire pour pseudo-élément */
+    position: absolute;
+    bottom: -5px; /* Sous le texte */
+    left: 0;
+    width: 0; /* Commence à 0 */
+    height: 2px; /* Épaisseur de la ligne */
+    background: linear-gradient(90deg, var(--primary), var(--secondary)); /* Dégradé cyan-magenta */
+    transition: width 0.3s ease; /* Animation de largeur */
+}
+
+/* Expansion de la ligne au survol */
+nav ul a:hover::after {
+    width: 100%; /* Ligne s'étend sous tout le texte */
+}
+
+/* MOBILE MENU */
+
+/* Bouton hamburger pour mobile */
+.mobile-menu-toggle {
+    display: none; /* Masqué sur desktop */
+    flex-direction: column; /* Trois lignes empilées */
+    cursor: pointer; /* Curseur pointeur */
+    z-index: 1001; /* Toujours au-dessus de la nav */
+}
+
+/* Lignes du hamburger */
+.mobile-menu-toggle span {
+    width: 30px;
+    height: 3px; /* Épaisseur de chaque ligne */
+    background: var(--primary); /* Cyan */
+    margin: 3px 0; /* Espacement vertical */
+    transition: all 0.3s ease; /* Animation douce */
+    border-radius: 2px; /* Coins légèrement arrondis */
+}
+
+/* Transformation du hamburger en croix quand actif */
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px); /* Rotate + translate pour la croix */
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0; /* Masque la ligne du milieu */
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px); /* Rotate + translate pour la croix */
+}
+
+/* CHOIX DE LANGUE AVEC DRAPEAUX */
+.language-switch {
+    display: flex; /* Affichage horizontal */
+    align-items: center; /* Alignement vertical centré */
+    gap: 6px; /* Espace entre drapeaux */
+}
+
+.language-switch a {
+    display: inline-flex; /* Conteneur flexible pour drapeau + texte si besoin */
+    align-items: center;
+    transition: transform 0.3s ease; /* Animation au survol */
+}
+
+.language-switch a:hover {
+    transform: scale(1.1); /* Agrandit légèrement au survol */
+}
+
+/* Icône de drapeau */
+.flag-icon {
+    width: 24px; /* Largeur fixe */
+    height: auto; /* Hauteur automatique pour garder proportion */
+    border-radius: 3px; /* Coins légèrement arrondis */
+}
+/* ==========================
+   HERO SECTION
+========================== */
+
+/* Conteneur principal de la section hero */
+.hero {
+    height: 100vh; /* Hauteur = hauteur de l'écran */
+    display: flex; /* Utilisation de Flexbox */
+    align-items: center; /* Centrage vertical */
+    justify-content: center; /* Centrage horizontal */
+    position: relative; /* Pour positionner des éléments enfants */
+    margin-top: 80px; /* Décalage vers le bas pour la nav */
+}
+
+/* Contenu de la section hero (texte, titres, etc.) */
+.hero-content {
+    text-align: center; /* Centrage du texte */
+    z-index: 10; /* Au-dessus des arrière-plans */
+    animation: fadeInUp 1s ease; /* Animation d'apparition */
+    position: relative; /* Position relative pour éléments internes */
+}
+
+/* Texte glitch du hero */
+.glitch {
+    font-family: 'Orbitron', sans-serif; /* Police stylisée techno */
+    font-size: 5rem; /* Très grand texte */
+    font-weight: 900; /* Gras extrême */
+    text-transform: uppercase; /* Majuscules */
+    position: relative; /* Pour pseudo-éléments ::before et ::after */
+    color: var(--text-primary); /* Couleur texte principale */
+    letter-spacing: 8px; /* Espacement des lettres */
+    animation: glitch 2s infinite; /* Animation de glitch infinie */
+}
+
+/* Pseudo-éléments pour effet glitch */
+.glitch::before,
+.glitch::after {
+    content: attr(data-text); /* Reproduit le texte pour glitch */
+    position: absolute; /* Superposé sur le texte principal */
+    top: 0;
+    left: 0;
+    width: 100%; /* Prend toute la largeur */
+    height: 100%; /* Prend toute la hauteur */
+}
+
+/* Couche cyan du glitch */
+.glitch::before {
+    animation: glitch-1 0.5s infinite; /* Animation de décalage */
+    color: var(--primary); /* Cyan */
+    z-index: -1; /* Derrière le texte principal */
+}
+
+/* Couche magenta du glitch */
+.glitch::after {
+    animation: glitch-2 0.5s infinite; /* Animation de décalage */
+    color: var(--secondary); /* Magenta */
+    z-index: -2; /* Derrière la couche cyan */
+}
+
+/* Animation du texte principal glitch */
+@keyframes glitch {
+    0%, 100% { text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); } /* Lueur cyan faible */
+    50% { text-shadow: 0 0 20px rgba(255, 0, 255, 0.5); } /* Lueur magenta intense */
+}
+
+/* Animation de la couche cyan du glitch */
+@keyframes glitch-1 {
+    0%, 100% { clip: rect(42px, 9999px, 44px, 0); transform: translate(0); }
+    50% { clip: rect(12px, 9999px, 59px, 0); transform: translate(-2px, -2px); }
+}
+
+/* Animation de la couche magenta du glitch */
+@keyframes glitch-2 {
+    0%, 100% { clip: rect(12px, 9999px, 85px, 0); transform: translate(0); }
+    50% { clip: rect(78px, 9999px, 93px, 0); transform: translate(2px, 2px); }
+}
+
+/* Sous-titre de la hero */
+.subtitle {
+    font-family: 'Exo 2', sans-serif; /* Police secondaire */
+    font-size: 1.3rem;
+    font-weight: 300; /* Texte léger */
+    margin-top: 20px; /* Décalage depuis le titre */
+    opacity: 0.9; /* Légèrement transparent */
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent)); /* Dégradé coloré */
+    -webkit-background-clip: text; /* Texte prend le dégradé */
+    -webkit-text-fill-color: transparent; /* Rendu transparent pour background-clip */
+    background-clip: text;
+    animation: gradient 3s ease infinite; /* Animation dégradé infinie */
+    letter-spacing: 3px;
+    text-transform: uppercase; /* Majuscules */
+}
+
+/* Animation du dégradé du sous-titre */
+@keyframes gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ==========================
+   SCROLL BUTTON
+========================== */
+
+/* Conteneur du bouton de scroll */
+.scroll-btn {
+    position: absolute; /* Positionné par rapport au hero */
+    bottom: 50px; /* Décalage du bas */
+    left: 50%; /* Centré horizontalement */
+    transform: translateX(-50%); /* Ajustement exact du centrage */
+    cursor: pointer; /* Curseur pointer */
+    animation: bounce 2s infinite; /* Animation de rebond */
+    z-index: 10; /* Au-dessus des éléments */
+}
+
+/* Partie intérieure du bouton scroll */
+.scroll-btn-inner {
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--primary); /* Bordure cyan */
+    border-radius: 50%; /* Rond */
+    display: flex; /* Flex pour centrer icône */
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 255, 255, 0.1); /* Fond semi-transparent */
+    backdrop-filter: blur(10px); /* Effet glass */
+    transition: all 0.3s ease; /* Transition douce */
+}
+
+/* Hover du bouton scroll */
+.scroll-btn:hover .scroll-btn-inner {
+    background: rgba(0, 255, 255, 0.2); /* Fond plus visible */
+    transform: scale(1.1); /* Agrandissement */
+    box-shadow: 0 0 30px var(--primary); /* Ombre cyan */
+}
+
+/* SVG à l'intérieur du bouton */
+.scroll-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--primary); /* Couleur cyan */
+    animation: arrowMove 1.5s infinite; /* Animation de flèche */
+}
+
+/* Animation de rebond du bouton */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-20px); }
+    60% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Animation du mouvement de la flèche */
+@keyframes arrowMove {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+/* ==========================
+   SECTIONS
+========================== */
+
+/* Style général des sections */
+section {
+    padding: 100px 50px; /* Espace interne vertical et horizontal */
+    max-width: 1200px; /* Largeur maximale */
+    margin: 0 auto; /* Centré horizontalement */
+    position: relative;
+    z-index: 2; /* Au-dessus des backgrounds mais derrière hero-content */
+}
+
+/* Titres des sections */
+.section-title {
+    font-family: 'Orbitron', sans-serif; /* Police techno stylisée */
+    font-size: 3rem;
+    font-weight: 700; /* Gras */
+    margin-bottom: 50px; /* Espace sous le titre */
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    width: 100%; /* Prend toute la largeur disponible */
+    letter-spacing: 4px; /* Espacement des lettres */
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 
+                 0 0 20px rgba(0, 255, 255, 0.6),
+                 0 0 30px rgba(0, 255, 255, 0.4); /* Lueur cyan */
+    animation: titleGlow 2s ease-in-out infinite alternate; /* Animation de glow */
+}
+
+/* Animation glow des titres */
+@keyframes titleGlow {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; 
+           text-shadow: 0 0 15px rgba(0, 255, 255, 1), 
+                        0 0 30px rgba(0, 255, 255, 0.8),
+                        0 0 45px rgba(0, 255, 255, 0.6); }
+}
+
+/* Ligne décorative sous le titre de section */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* Décalage sous le texte */
+    left: 50%; /* Centré */
+    transform: translateX(-50%); /* Ajustement du centrage */
+    width: 150px; /* Longueur de la ligne */
+    height: 4px; /* Épaisseur */
+    background: linear-gradient(90deg, var(--primary), var(--secondary)); /* Dégradé cyan → magenta */
+    box-shadow: 0 0 10px var(--primary); /* Ombre légère */
+}
+
+/* ==========================
+   GLASS CARDS
+========================== */
+
+/* Carte en verre */
+.glass-card {
+    background: var(--bg-glass); /* Fond translucide */
+    backdrop-filter: blur(10px); /* Flou du fond */
+    border-radius: 20px; /* Coins arrondis */
+    padding: 30px; /* Espace interne */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure très subtile */
+    transition: all 0.3s ease; /* Transition douce pour hover */
+    margin-bottom: 30px; /* Espace entre cartes */
+    position: relative; /* Pour pseudo-élément overlay */
+    overflow: hidden; /* Empêche débordement du pseudo-élément */
+}
+
+/* Overlay de lignes sur la carte */
+.glass-card::after {
+    content: '';
+    position: absolute; /* Superposé */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px), /* Lignes horizontales */
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px); /* Lignes verticales */
+    background-size: 20px 20px; /* Espacement des lignes */
+    opacity: 0; /* Invisible par défaut */
+    transition: opacity 0.3s ease; /* Transition d'apparition */
+    pointer-events: none; /* Ne bloque pas les interactions */
+}
+
+/* Overlay visible au survol */
+.glass-card:hover::after {
+    opacity: 1; /* Overlay apparaît */
+}
+
+/* Effet hover sur la carte */
+.glass-card:hover {
+    transform: translateY(-10px); /* Légère élévation */
+    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2); /* Ombre cyan prononcée */
+    border-color: var(--primary); /* Bordure cyan */
+}
+/* ==========================
+   ABOUT SECTION
+========================== */
+
+/* Conteneur principal de la section About */
+.about-container {
+    display: grid; /* Utilisation d'une grille CSS */
+    grid-template-columns: 1fr 2fr; /* Deux colonnes : image + contenu */
+    gap: 50px; /* Espace entre les colonnes */
+    align-items: center; /* Centré verticalement */
+}
+
+/* Conteneur de l'image de profil */
+.about-image {
+    position: relative; /* Pour pseudo-éléments éventuels */
+    display: flex; /* Flex pour centrer l'image */
+    justify-content: center; /* Centrage horizontal */
+    align-items: center; /* Centrage vertical */
+}
+
+/* Wrapper avec bordure dégradée autour de l'image */
+.profile-img-wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 20px; /* Coins arrondis */
+    overflow: hidden; /* Contenu ne dépasse pas */
+    background: linear-gradient(45deg, var(--primary), var(--secondary)); /* Dégradé cyan → magenta */
+    padding: 3px; /* Bordure simulée par padding */
+}
+
+/* Image de profil elle-même ou initiales */
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* L'image couvre entièrement le container */
+    border-radius: 17px; /* Coins légèrement plus petits que le wrapper */
+    background: var(--bg-dark); /* Fond sombre si image manquante */
+    display: flex; /* Flex pour centrer texte/initiales */
+    align-items: center; /* Centrage vertical */
+    justify-content: center; /* Centrage horizontal */
+    color: var(--primary); /* Couleur du texte ou initiales */
+    font-size: 6rem; /* Très grand texte */
+    font-family: 'Orbitron', sans-serif; /* Police techno */
+    font-weight: 900; /* Très gras */
+    position: relative; /* Pour pseudo-éléments */
+    overflow: hidden; /* Contenu dépasse pas */
+    letter-spacing: 5px; /* Espacement des lettres */
+}
+
+/* Effet pulsant derrière l'image de profil */
+.profile-img::before {
+    content: ''; /* Nécessaire pour pseudo-élément */
+    position: absolute; /* Positionné par rapport au parent */
+    width: 200%; /* Plus large que l'image */
+    height: 200%; /* Plus haut que l'image */
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%); /* Halo circulaire cyan */
+    opacity: 0.2; /* Très léger */
+    animation: pulse 3s ease-in-out infinite; /* Animation de pulsation infinie */
+}
+
+/* Animation du halo pulsant */
+@keyframes pulse {
+    0%, 100% { transform: scale(0.8); opacity: 0.2; } /* Début et fin légèrement réduit et opaque */
+    50% { transform: scale(1.2); opacity: 0.1; } /* Milieu plus grand et plus transparent */
+}
+
+/* Titre de la section About */
+.about-content h3 {
+    font-family: 'Orbitron', sans-serif; /* Police techno */
+    font-size: 2rem;
+    font-weight: 700; /* Gras */
+    margin-bottom: 20px; /* Espace sous le titre */
+    background: linear-gradient(90deg, var(--primary), var(--secondary)); /* Dégradé cyan → magenta */
+    -webkit-background-clip: text; /* Texte prend le dégradé */
+    -webkit-text-fill-color: transparent; /* Rendu transparent pour background-clip */
+    background-clip: text;
+    text-transform: uppercase; /* Majuscules */
+    letter-spacing: 2px; /* Espacement des lettres */
+}
+
+/* Conteneur des statistiques */
+.about-stats {
+    display: grid; /* Grille CSS */
+    grid-template-columns: repeat(3, 1fr); /* Trois colonnes égales */
+    gap: 30px; /* Espace entre les cartes */
+    margin-top: 40px; /* Décalage du contenu précédent */
+}
+
+/* Carte de statistique individuelle */
+.stat-card {
+    text-align: center; /* Centrage texte */
+    padding: 20px; /* Espace interne */
+    background: var(--bg-glass); /* Fond translucide */
+    border-radius: 15px; /* Coins arrondis */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure subtile */
+    transition: all 0.3s ease; /* Transition douce pour hover */
+}
+
+/* Effet hover sur les cartes */
+.stat-card:hover {
+    transform: translateY(-5px); /* Légère élévation */
+    border-color: var(--primary); /* Bordure cyan */
+    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2); /* Ombre cyan */
+}
+
+/* Numéro/statistique */
+.stat-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900; /* Très gras */
+    color: var(--primary); /* Cyan */
+    margin-bottom: 5px; /* Décalage avec label */
+    letter-spacing: 2px;
+}
+
+/* Label de la statistique */
+.stat-label {
+    font-family: 'Audiowide', sans-serif; /* Police secondaire */
+    font-size: 0.8rem;
+    color: var(--text-secondary); /* Gris clair */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400; /* Normal */
+}
+
+/* ==========================
+   PROJECTS GRID
+========================== */
+
+/* Conteneur des projets */
+.projects-grid {
+    display: grid; /* Grille CSS */
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes égales */
+    gap: 30px; /* Espace entre les projets */
+}
+
+/* Carte projet */
+.project-card {
+    position: relative; /* Pour pseudo-éléments */
+    overflow: hidden; /* Empêche le débordement */
+    cursor: pointer; /* Curseur pointer */
+}
+
+/* Titre du projet */
+.project-card h3 {
+    font-family: 'Audiowide', sans-serif; /* Police stylisée */
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1; /* Au-dessus du pseudo-élément */
+}
+
+/* Description du projet */
+.project-card p {
+    position: relative;
+    z-index: 1; /* Au-dessus du pseudo-élément */
+}
+
+/* Effet overlay animé sur la carte */
+.project-card::before {
+    content: ''; /* Nécessaire pour pseudo-élément */
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, var(--primary), transparent); /* Ligne dégradée */
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0; /* Invisible par défaut */
+}
+
+/* Animation overlay au hover */
+.project-card:hover::before {
+    animation: shine 0.5s ease;
+}
+
+/* Animation glow cyber pour la carte */
+.project-card:hover {
+    animation: cyberGlow 0.3s ease forwards;
+}
+
+/* Animation glow cyan */
+@keyframes cyberGlow {
+    0% { box-shadow: 0 0 5px rgba(0, 255, 255, 0.5); }
+    100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), inset 0 0 20px rgba(0, 255, 255, 0.1); }
+}
+
+/* Animation de brillance sur overlay */
+@keyframes shine {
+    0% { transform: rotate(45deg) translateY(-100%); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: rotate(45deg) translateY(100%); opacity: 0; }
+}
+
+
+        /* Skills
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .skill-node {
+            font-family: 'Audiowide', sans-serif;
+            width: 120px;
+            height: 120px;
+            background: var(--bg-glass);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .skill-node::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary), transparent);
+            opacity: 0;
+            transition: all 0.3s ease;
+            transform: scale(1.2);
+        }
+
+        .skill-node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .skill-node:hover::before {
+            opacity: 0.3;
+        } */
+
+        /* Skills */
+/* ==========================
+   SKILLS SECTION
+========================== */
+
+/* Conteneur principal des compétences */
+.skills-container {
+    display: flex; /* Flexbox pour alignement horizontal */
+    flex-wrap: wrap; /* Les éléments passent à la ligne si besoin */
+    gap: 20px; /* Espace entre les compétences */
+    justify-content: center; /* Centrage horizontal */
+}
+
+/* Chaque compétence représentée par un noeud circulaire */
+.skills-container a.skill-node {
+    font-family: 'Audiowide', sans-serif; /* Police stylisée */
+    width: 120px;
+    height: 120px;
+    background: var(--bg-glass); /* Fond translucide */
+    border: 2px solid var(--primary); /* Bordure cyan */
+    border-radius: 50%; /* Forme circulaire */
+    display: flex; /* Flex pour centrer texte ou icône */
+    align-items: center; /* Centré vertical */
+    justify-content: center; /* Centré horizontal */
+    position: relative; /* Pour pseudo-éléments */
+    transition: all 0.3s ease; /* Transition douce pour hover */
+    cursor: pointer; /* Curseur pointer */
+    font-weight: 400; /* Texte normal */
+    font-size: 0.8rem; /* Taille du texte */
+    letter-spacing: 1px; /* Espacement lettres */
+    text-transform: uppercase; /* Majuscules */
+    color: var(--text-primary); /* Couleur texte principale */
+    text-decoration: none; /* Supprime le soulignement */
+}
+
+/* Effet radial derrière le noeud */
+.skills-container a.skill-node::before {
+    content: ''; /* Nécessaire pour pseudo-élément */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Cercle parfait */
+    background: radial-gradient(circle, var(--primary), transparent); /* Halo cyan */
+    opacity: 0; /* Invisible par défaut */
+    transition: all 0.3s ease; /* Transition douce */
+    transform: scale(1.2); /* Taille légèrement plus grande pour l'effet hover */
+}
+
+/* Hover sur le noeud */
+.skills-container a.skill-node:hover {
+    transform: scale(1.1); /* Légèrement agrandi */
+    box-shadow: 0 0 30px var(--primary); /* Ombre cyan autour */
+}
+
+/* Halo visible au hover */
+.skills-container a.skill-node:hover::before {
+    opacity: 0.3; /* Semi-transparent */
+}
+.locations-container {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.locations-title {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(0,255,255,0.5);
+}
+
+.locations-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* s'adapte aux écrans plus petits */
+}
+
+.location-card {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 15px;
+    width: 200px;
+    box-shadow: 0 0 15px rgba(0,255,255,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.location-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px var(--primary), 0 0 40px var(--secondary);
+}
+
+.location-card h4 {
+    margin-bottom: 10px;
+    color: var(--primary);
+    font-family: 'Audiowide', sans-serif;
+}
+
+.location-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ==========================
+   CONTACT SECTION
+========================== */
+
+/* Conteneur global : formulaire + photo */
+.contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3rem;
+    margin-top: 2rem;
+    flex-wrap: wrap; /* Permet le passage en colonne sur petits écrans */
+}
+
+/* ==========================
+   CONTACT FORM
+========================== */
+
+/* Conteneur principal du formulaire */
+.contact-form {
+    flex: 1;
+    max-width: 600px; /* Largeur maximale */
+}
+
+/* Groupe de champs du formulaire */
+.form-group {
+    margin-bottom: 30px; /* Espacement entre les champs */
+}
+
+/* Input et textarea stylisés */
+.form-group input,
+.form-group textarea {
+    width: 100%; /* Prend toute la largeur disponible */
+    padding: 15px; /* Espace interne */
+    background: var(--bg-glass); /* Fond translucide */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure subtile */
+    border-radius: 10px; /* Coins arrondis */
+    color: var(--text-primary); /* Texte clair */
+    font-size: 16px;
+    transition: all 0.3s ease; /* Transition douce */
+}
+
+/* Focus sur input et textarea */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none; /* Supprime le contour par défaut */
+    border-color: var(--primary); /* Bordure cyan */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); /* Halo cyan */
+}
+
+/* Bouton d'envoi stylisé */
+.neural-btn {
+    font-family: 'Audiowide', sans-serif; /* Police stylisée */
+    background: linear-gradient(90deg, var(--primary), var(--secondary)); /* Dégradé cyan → magenta */
+    color: var(--bg-dark); /* Texte sombre */
+    padding: 15px 40px; /* Espace interne */
+    border: none; /* Pas de bordure */
+    border-radius: 50px; /* Forme arrondie */
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase; /* Majuscules */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative; /* Pour pseudo-élément */
+    overflow: hidden; /* Contenu débordant caché */
+}
+
+/* Effet d'animation sur le bouton */
+.neural-btn::before {
+    content: ''; /* Nécessaire pour pseudo-élément */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0; /* Taille initiale = 0 */
+    height: 0;
+    background: rgba(255, 255, 255, 0.3); /* Cercle blanc semi-transparent */
+    border-radius: 50%; /* Cercle parfait */
+    transform: translate(-50%, -50%); /* Centré sur le bouton */
+    transition: all 0.5s ease; /* Transition douce */
+}
+
+/* Agrandissement du cercle au hover */
+.neural-btn:hover::before {
+    width: 300px; /* Cercle très grand */
+    height: 300px;
+}
+
+/* ==========================
+   PHOTO À DROITE
+========================== */
+
+.contact-photo {
+    flex: 0 1 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-glass);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-photo:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+/* Image stylisée dans le thème */
+.contact-photo img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 50%; /* rond (harmonieux) */
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-photo {
+        margin-top: 2rem;
+    }
+
+    .contact-form {
+        max-width: 100%;
+    }
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+/* Style principal du footer */
+footer {
+    background: rgba(10, 10, 10, 0.95); /* Fond très sombre et légèrement transparent */
+    border-top: 1px solid rgba(0, 255, 255, 0.2); /* Bordure cyan subtile */
+    padding: 50px 50px 30px; /* Padding haut, côtés, bas */
+    margin-top: 100px; /* Décalage par rapport au contenu précédent */
+    position: relative; /* Pour pseudo-éléments ou overlays éventuels */
+    z-index: 2; /* Au-dessus de certains éléments */
+}
+
+/* Conteneur du contenu du footer */
+.footer-content {
+    max-width: 1200px; /* Largeur maximale */
+    margin: 0 auto; /* Centré horizontalement */
+    display: grid; /* Grille pour les sections */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Colonnes adaptatives */
+    gap: 40px; /* Espacement entre sections */
+    margin-bottom: 30px; /* Espace avec le footer-bottom */
+}
+
+/* Titres de chaque section */
+.footer-section h3 {
+    font-family: 'Audiowide', sans-serif; /* Police stylisée */
+    color: var(--primary); /* Cyan */
+    margin-bottom: 20px; /* Décalage sous le titre */
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-transform: uppercase; /* Majuscules */
+    letter-spacing: 2px; /* Espacement lettres */
+}
+
+/* Liste des liens dans chaque section */
+.footer-section ul {
+    list-style: none; /* Supprime les puces */
+}
+
+/* Chaque élément de la liste */
+.footer-section ul li {
+    margin-bottom: 10px; /* Décalage vertical entre les liens */
+}
+
+/* Liens dans le footer */
+.footer-section a {
+    color: var(--text-secondary); /* Gris clair */
+    text-decoration: none; /* Supprime le soulignement */
+    transition: all 0.3s ease; /* Transition douce pour hover */
+}
+
+/* Hover sur les liens du footer */
+.footer-section a:hover {
+    color: var(--primary); /* Passe en cyan */
+    transform: translateX(5px); /* Légère translation */
+    display: inline-block; /* Nécessaire pour translateX */
+}
+
+/* ==========================
+   SOCIAL LINKS
+========================== */
+
+/* Conteneur des liens sociaux */
+.social-links {
+    display: flex; /* Alignement horizontal */
+    gap: 20px; /* Espace entre icônes */
+    margin-top: 20px; /* Décalage vertical */
+}
+
+/* Style des liens sociaux */
+.social-links a {
+    display: inline-block; /* Plus de flex ni de cercle */
+    transition: all 0.3s ease; /* Transition douce */
+}
+
+/* Images à l'intérieur des liens sociaux */
+.social-links a img {
+    width: 40px; /* Taille des icônes */
+    height: 40px;
+    display: block; /* Supprime l'espacement inline */
+    transition: all 0.3s ease; /* Transition pour hover */
+}
+
+/* Effet hover sur les icônes sociales */
+.social-links a:hover img {
+    transform: translateY(-5px); /* Remontée légère */
+    filter: drop-shadow(0 0 5px #00ffff)
+            drop-shadow(0 0 10px #00ffff)
+            drop-shadow(0 0 20px #00ffff)
+            drop-shadow(0 0 30px #00ffff); /* Glow cyan multiple */
+}
+
+/* ==========================
+   FOOTER BOTTOM
+========================== */
+
+/* Texte en bas du footer */
+.footer-bottom {
+    font-family: 'Exo 2', sans-serif; /* Police principale */
+    text-align: center; /* Centré */
+    padding-top: 30px; /* Décalage au-dessus */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Ligne séparatrice subtile */
+    color: var(--text-secondary); /* Gris clair */
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* Liens dans le footer-bottom */
+.footer-bottom a {
+    color: white; /* Lien blanc */
+}
+/* ==========================
+   ANIMATIONS
+========================== */
+
+/* Animation d'apparition depuis le bas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0; /* Invisible au départ */
+        transform: translateY(30px); /* Décalage vers le bas */
+    }
+    to {
+        opacity: 1; /* Devient visible */
+        transform: translateY(0); /* Remontée à sa position normale */
+    }
+}
+
+/* Classe initiale pour fade-in */
+.fade-in {
+    opacity: 0; /* Invisible */
+    transform: translateY(30px); /* Décalage vers le bas */
+    transition: all 0.6s ease; /* Transition douce lors de l'ajout de la classe visible */
+}
+
+/* Classe activée pour rendre visible */
+.fade-in.visible {
+    opacity: 1; /* Devient visible */
+    transform: translateY(0); /* Position normale */
+}
+
+/* ==========================
+   TABLET RESPONSIVE
+========================== */
+
+/* Styles pour tablettes (largeur 769px à 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .projects-grid {
+        gap: 25px; /* Réduit l'espacement entre projets */
+    }
+    
+    .glitch {
+        font-size: 4rem; /* Texte un peu plus petit que sur desktop */
+    }
+}
+
+/* ==========================
+   RESPONSIVE MOBILE
+========================== */
+
+/* Styles pour écrans ≤ 768px */
+@media (max-width: 768px) {
+    /* Navigation */
+    nav {
+        padding: 15px 20px; /* Moins de padding sur mobile */
+    }
+
+    .logo-text {
+        font-size: 1.2rem; /* Réduction du texte du logo */
+    }
+
+    .logo-svg {
+        width: 40px;
+        height: 40px; /* Réduction de la taille du logo SVG */
+    }
+
+    .nav-container {
+        position: relative; /* Pour positionner le menu mobile */
+    }
+
+    .mobile-menu-toggle {
+        display: flex; /* Affiche le bouton hamburger */
+    }
+
+    .nav-menu {
+        position: absolute; /* Menu positionné sous la nav */
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.98); /* Fond sombre */
+        max-height: 0; /* Caché par défaut */
+        overflow: hidden; /* Masque le contenu débordant */
+        transition: max-height 0.3s ease; /* Transition pour l'ouverture */
+        margin-top: 15px;
+    }
+
+    .nav-menu.active {
+        max-height: 400px; /* Hauteur maximale quand ouvert */
+        border-top: 1px solid rgba(0, 255, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .nav-menu::before,
+    .nav-menu::after {
+        display: none; /* Supprime les décorations du menu */
+    }
+
+    nav ul {
+        flex-direction: column; /* Menu vertical */
+        gap: 0;
+        padding: 20px; /* Padding interne */
+    }
+
+    nav ul li {
+        padding: 15px 0; /* Espacement vertical entre liens */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Ligne séparatrice */
+    }
+
+    nav ul a {
+        font-size: 0.9rem; /* Taille du texte réduite */
+    }
+
+    nav ul li:last-child {
+        border-bottom: none; /* Supprime la dernière ligne */
+    }
+
+    /* Hero Section */
+    .glitch {
+        font-size: 2.5rem; /* Texte plus petit */
+        letter-spacing: 3px; /* Espacement réduit */
+    }
+
+    .hero {
+        margin-top: 70px; /* Moins de marge sur mobile */
+    }
+
+    .subtitle {
+        font-size: 1rem; /* Plus petit */
+        letter-spacing: 2px;
+    }
+
+    /* Sections */
+    section {
+        padding: 50px 20px; /* Padding réduit */
+    }
+
+    /* Footer */
+    .footer-content {
+        gap: 30px;
+        padding: 0 20px;
+    }
+
+    .footer-section h3 {
+        font-size: 1rem;
+    }
+
+    .footer-bottom {
+        font-size: 0.8rem;
+    }
+
+    /* Buttons */
+    .neural-btn {
+        font-size: 12px;
+        padding: 12px 30px;
+    }
+
+    /* Scroll Button */
+    .scroll-btn-inner {
+        width: 40px;
+        height: 40px;
+    }
+
+    .scroll-btn {
+        bottom: 30px;
+    }
+
+    .scroll-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+        padding: 20px;
+    }
+
+    /* Form */
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    /* Social Links */
+    .social-links a {
+        width: 35px;
+        height: 35px;
+    }
+
+    .social-links svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Paragraphs */
+    p {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    /* About Section */
+    .about-container {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+        text-align: center; /* Centré */
+    }
+
+    .profile-img-wrapper {
+        width: 250px;
+        height: 250px; /* Image plus petite */
+        margin: 0 auto; /* Centrée */
+    }
+
+    .profile-img {
+        font-size: 4rem; /* Texte plus petit */
+    }
+
+    .about-stats {
+        grid-template-columns: 1fr; /* Une colonne */
+        gap: 20px;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    /* Projects */
+    .projects-grid {
+        grid-template-columns: 1fr; /* Une colonne */
+    }
+
+    .project-card h3 {
+        font-size: 0.9rem;
+    }
+
+    /* Skills */
+    .skill-node {
+        width: 100px;
+        height: 100px;
+        font-size: 0.7rem;
+    }
+
+    /* Section Titles */
+    .section-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+
+    /* About Content Titles */
+    .about-content h3 {
+        font-size: 1.5rem;
+    }
+}

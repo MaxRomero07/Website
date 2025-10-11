@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications scientifiques - Maxime Najac</title>
+  <link rel="stylesheet" href="publications.css"> <!-- CSS principal -->
+  <style>
+    body {
+      background-color: #0b0b0b; /* fond noir */
+      color: #ffffff;
+    }
+    h2 {
+      text-align: center;
+      margin: 40px 0 20px;
+      color: var(--primary);
+    }
+    .projects-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+    }
+    .project-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 250px;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(0,255,255,0.5);
+    }
+    .project-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .project-card h3 {
+      margin: 10px 0;
+      font-size: 1.1rem;
+    }
+    .btn-primary {
+      background-color: #00ffff;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #00b3b3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html" style="text-decoration:none; color:inherit; font-weight:bold; padding:10px; display:inline-block;">← Retour à l'accueil</a>
+    </nav>
+  </header>
+  <main>
+    <section id="projects">
+      <h2>Publications chez Cépaduès Éditions</h2>
+      <div class="projects-container">
+        <div class="project-card">
+          <img src="./assets/project-1.png" alt="Algèbre linéaire">
+          <h3>Algèbre linéaire</h3>
+          <a href="https://www.cepadues.com/livres/sciences/mathematiques/1707-algebre-lineaire-7e-edition-9782383951346.html"
+   class="buy-btn btn-primary"
+   onclick="window.open(this.href,'_blank'); return false;">
+   Acheter
+</a>      
+        </div>
+        <div class="project-card">
+          <img src="./assets/project-2.png" alt="Exercices corrigés">
+          <h3>Exercices corrigés d'Algèbre linéaire</h3>
+          <button class="btn btn-primary">En cours</button>
+        </div>
+        <div class="project-card">
+          <img src="./assets/project-3.png" alt="Prolongements">
+          <h3>Prolongements d'Algèbre linéaire</h3>
+          <button class="btn btn-primary">En cours</button>
+        </div>
+        <!-- Tu peux ajouter d'autres cartes de publication ici -->
+      </div>
+    </section>
+    <section id="projects">
+        <h2>Cours, TD, et examens</h2>
+        <div class="projects-container">
+          <div class="project-card">
+            <img src="./assets/image_cours_l1.png" alt="Algèbre linéaire">
+            <h3>L2 maths</h3>
+          </div>
+          <div class="project-card">
+            <img src="./assets/image_cours_L2_maths.png" alt="Exercices corrigés">
+            <h3>L3 maths</h3>
+          </div>
+          <div class="project-card">
+            <img src="./assets/Corr_exam_concours.png" alt="Prolongements">
+            <h3>Corrigés de concours</h3>
+          </div>
+          <!-- Tu peux ajouter d'autres cartes de publication ici -->
+        </div>
+      </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+
+        <!-- Navigation -->
+        <div class="footer-section">
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#courses">Cours</a></li>
+                <li><a href="#testimonials">Témoignages</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- Services / Cours particuliers -->
+        <div class="footer-section">
+            <h3>Mes domaines</h3>
+            <ul>
+                <li><a href="#">Géométrie algébrique et K-théorie</a></li>
+                <li><a href="#">Algèbres de Clifford</a></li>
+                <li><a href="#">Analyse numérique</a></li>
+                <li><a href="#">Apprentissage automatique</a></li>
+                <li><a href="#">Vision 3D par ordinateur</a></li>
+                <li><a href="#">Ingénierie aéronautique/aérospatiale</a></li>
+            </ul>            
+        </div>
+
+        <!-- Réseaux / Contact -->
+        <div class="footer-section">
+            <h3>Restons en contact</h3>
+            <p>Suivez mes actualités et mes projets</p>
+            <div class="social-links">
+                <a href="https://github.com/MaxRomero07" target="_blank">
+                    <img src="assets/github.png" alt="GitHub" style="width: 30px; height: 30px; margin-right: 10px;">
+                </a>
+                <a href="https://www.linkedin.com/in/maxime-n-456a5a292/" target="_blank">
+                    <img src="assets/linkedin.png" alt="LinkedIn" style="width: 30px; height: 30px;">
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025. Tous droits réservés. Site développé par Maxime NAJAC</p>
+    </div>
+</footer>
+  <script src="tooplate-neural-scripts.js"></script>
+</body>
+</html>
