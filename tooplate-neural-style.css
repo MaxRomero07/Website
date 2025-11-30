@@ -1076,6 +1076,7 @@ footer {
 /* Conteneur des liens sociaux */
 .social-links {
     display: flex; /* Alignement horizontal */
+    align-items: center;
     gap: 20px; /* Espace entre icônes */
     margin-top: 20px; /* Décalage vertical */
 }
@@ -1088,9 +1089,10 @@ footer {
 
 /* Images à l'intérieur des liens sociaux */
 .social-links a img {
-    width: 40px; /* Taille des icônes */
-    height: 40px;
-    display: block; /* Supprime l'espacement inline */
+    width: 40px;           /* Largeur forcée du cadre */
+    height: 40px;          /* Hauteur forcée du cadre */
+    object-fit: contain;   /* AJOUT IMPORTANT : Adapte l'image dans le cadre sans déformer */
+    display: block;        /* Supprime l'espacement inline */
     transition: all 0.3s ease; /* Transition pour hover */
 }
 
@@ -1101,6 +1103,18 @@ footer {
             drop-shadow(0 0 10px #00ffff)
             drop-shadow(0 0 20px #00ffff)
             drop-shadow(0 0 30px #00ffff); /* Glow cyan multiple */
+}
+
+/* Ajustement spécifique pour Instagram */
+.social-links a img.logo-insta {
+    width: 60px;  /* Un peu plus grand */
+    height: 60px;
+}
+
+/* Ajustement spécifique pour YouTube */
+.social-links a img.logo-youtube {
+    width: 60px;  /* Encore plus grand pour compenser sa forme */
+    height: 60px;
 }
 
 /* ==========================
