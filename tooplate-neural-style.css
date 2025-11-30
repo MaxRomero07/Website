@@ -545,35 +545,43 @@ section {
     padding: 3px; /* Bordure simulée par padding */
 }
 
-/* Image de profil elle-même ou initiales */
+/* Image de profil elle-même */
 .profile-img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* L'image couvre entièrement le container */
-    border-radius: 17px; /* Coins légèrement plus petits que le wrapper */
-    background: var(--bg-dark); /* Fond sombre si image manquante */
-    display: flex; /* Flex pour centrer texte/initiales */
-    align-items: center; /* Centrage vertical */
-    justify-content: center; /* Centrage horizontal */
-    color: var(--primary); /* Couleur du texte ou initiales */
-    font-size: 6rem; /* Très grand texte */
-    font-family: 'Orbitron', sans-serif; /* Police techno */
-    font-weight: 900; /* Très gras */
-    position: relative; /* Pour pseudo-éléments */
-    overflow: hidden; /* Contenu dépasse pas */
-    letter-spacing: 5px; /* Espacement des lettres */
+    /* Retrait de : object-fit: cover; (se fera sur <img>) */
+    border-radius: 17px; /* Conserver les coins arrondis */
+    background: var(--bg-dark); /* Conserver le fond sombre si l'image ne charge pas */
+    /* Retrait de : display: flex; align-items: center; justify-content: center; (plus besoin de centrer du texte) */
+    /* Retrait de : color, font-size, font-family, font-weight, letter-spacing (styles de texte) */
+    position: relative; /* Nécessaire pour l'effet ::before */
+    overflow: hidden; /* Nécessaire pour les coins arrondis et l'effet ::before */
 }
 
-/* Effet pulsant derrière l'image de profil */
+/* Vous conservez cette partie telle quelle pour l'effet de pulsation ! */
 .profile-img::before {
-    content: ''; /* Nécessaire pour pseudo-élément */
-    position: absolute; /* Positionné par rapport au parent */
-    width: 200%; /* Plus large que l'image */
-    height: 200%; /* Plus haut que l'image */
-    background: radial-gradient(circle, var(--primary) 0%, transparent 70%); /* Halo circulaire cyan */
-    opacity: 0.2; /* Très léger */
-    animation: pulse 3s ease-in-out infinite; /* Animation de pulsation infinie */
+    content: ''; 
+    position: absolute; 
+    width: 200%; 
+    height: 200%; 
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%); 
+    opacity: 0.2; 
+    animation: pulse 3s ease-in-out infinite;
+    z-index: 0; /* Assure que l'effet est derrière l'image (z-index: 1 sur <img>) */
 }
+
+/* N'oubliez pas d'ajouter la nouvelle règle pour l'image */
+.profile-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 17px; 
+    position: relative; 
+    z-index: 1; 
+}
+
+/* N'oubliez pas de conserver l'animation @keyframes pulse si elle est définie ailleurs. */
 
 /* Animation du halo pulsant */
 @keyframes pulse {
