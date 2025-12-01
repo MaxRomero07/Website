@@ -260,18 +260,17 @@ main h2 {
     justify-content: center; /* centre les images horizontalement */
 }
 
-/* Styles des images (MODIFIÉ) */
+/* Styles des images */
 .uni-images img {
     width: 360px; /* largeur fixe */
-    max-width: 100%; /* 👈 AJOUT CRITIQUE : L'image ne dépasse jamais la largeur de son conteneur parent */
     height: 165px; /* hauteur fixe */
-    background: var(--bg-card);
-    padding: 12px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,255,255,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    object-fit: cover;
+    background: var(--bg-card); /* fond sombre derrière l’image */
+    padding: 12px; /* espace interne autour de l’image */
+    border-radius: 12px; /* coins arrondis */
+    box-shadow: 0 0 10px rgba(0,255,255,0.2); /* ombre subtile néon */
+    transition: transform 0.3s, box-shadow 0.3s; /* transition douce sur hover */
+    cursor: pointer; /* pointeur au survol */
+    object-fit: cover; /* l'image remplit le cadre sans se déformer */
 }
 
 /* Effet hover sur les images */
@@ -549,47 +548,4 @@ footer {
 .fade-in.visible {
     opacity: 1; /* devient visible */
     transform: translateY(0); /* revient à sa position normale */
-}
-
-/* ==========================
-   RESPONSIVE CPGE ET GÉNÉRAL
-========================== */
-@media (max-width: 900px) {
-    /* Inverse la direction pour que les images (ou logos) soient au-dessus du texte */
-    .cpge-section {
-        flex-direction: column; 
-        text-align: center; /* Centre le texte dans ce bloc */
-        gap: 40px; /* Réduit l'espace entre les éléments empilés */
-    }
-
-    .cpge-text {
-        max-width: 100%; /* Prend toute la largeur disponible pour le texte */
-        padding: 0 10px; /* Ajoute un petit espace sur les côtés du texte */
-    }
-
-    /* Le titre de la page doit être plus petit sur mobile */
-    .page-title {
-        font-size: 2rem; /* Réduit la taille pour ne pas déborder */
-    }
-    .uni-images {
-        flex-direction: column; /* Les images s'empilent plutôt que d'être côte à côte */
-        gap: 15px;
-    }
-    
-    /* Force les images universitaires à ne plus avoir de hauteur fixe sur mobile */
-    .uni-images img {
-        height: auto; 
-    }
-
-    /* === AJOUTS POUR LE FOOTER === */
-    /* Centre le texte du dernier bloc de footer quand les blocs sont empilés */
-    .footer-section:last-child {
-        text-align: center;
-    }
-    
-    /* Centre les icônes sociales */
-    .social-links {
-        justify-content: center; 
-    }
-
 }
