@@ -9,22 +9,32 @@
 
 <url>
   <loc>https://maximenajac.fr/</loc>
-  <lastmod>2025-11-30T13:49:48+00:00</lastmod>
+  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://maximenajac.fr/cours-maths.html</loc>
-  <lastmod>2025-11-30T13:49:48+00:00</lastmod>
+  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://maximenajac.fr/cours-physique.html</loc>
+  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://maximenajac.fr/publications.html</loc>
-  <lastmod>2025-11-30T13:49:48+00:00</lastmod>
+  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://maximenajac.fr/sport.html</loc>
+  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://maximenajac.fr/index.html</loc>
-  <lastmod>2025-11-30T13:49:48+00:00</lastmod>
+  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 
