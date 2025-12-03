@@ -59,7 +59,7 @@
 
         function init() {
             nodes = [];
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 120; i++) {
                 nodes.push(new Node(
                     Math.random() * canvas.width,
                     Math.random() * canvas.height
@@ -89,18 +89,21 @@
 const repelRadius = 120;   // distance autour de la souris où les nœuds sont repoussés
 const repelForce = 0.5;   // intensité de la force de répulsion
 
+
 function repelNodes() {
+    // --- AJOUT : STOP si c'est un écran tactile/petit ---
+    // Si la largeur de la fenêtre est inférieure à 1024px (couvre mobiles et tablettes verticales)
+    if (window.innerWidth < 1024) return; 
+    // ----------------------------------------------------
+
     nodes.forEach(node => {
         const dx = node.x - mouse.x;
         const dy = node.y - mouse.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < repelRadius && distance > 0) {
-            // Normaliser le vecteur
             const nx = dx / distance;
             const ny = dy / distance;
-
-            // Appliquer la force de répulsion (inverse de la distance)
             const force = (repelRadius - distance) * repelForce / distance;
             node.vx += nx * force;
             node.vy += ny * force;

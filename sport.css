@@ -84,42 +84,55 @@ body::before {
 
 /* Navigation dans le header */
 header nav {
-    padding: 15px 50px; /* Padding interne haut/bas et gauche/droite */
-    background: rgba(10,10,10,0.95); /* Fond sombre semi-transparent */
-    border-bottom: 1px solid rgba(0,255,255,0.2); /* Ligne néon sous la nav */
+    /* Mise en page Flexbox */
+    display: flex;
+    justify-content: flex-start; /* Aligne tout à gauche */
+    align-items: center;        /* Centre verticalement */
+    gap: 20px;                  /* Espace entre les liens */
+    
+    /* Design */
+    padding: 15px 50px;         /* Marges larges pour PC */
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid rgba(0,255,255,0.2);
+}
+
+/* --- AJOUT CRUCIAL : Adaptation Mobile pour le Header --- */
+@media (max-width: 768px) {
+    header nav {
+        padding: 15px 20px; /* On réduit les marges latérales de 50px à 20px sur mobile */
+    }
 }
 
 /* Liens de navigation */
 header nav a {
-    color: var(--text-primary); /* Texte blanc */
-    text-decoration: none; /* Supprime le soulignement */
-    font-weight: bold; /* Texte en gras */
-    transition: all 0.3s ease; /* Transition douce pour hover */
-    position: relative; /* Nécessaire pour ::after */
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 /* Ligne décorative sous les liens (effet hover) */
 header nav a::after {
-    content: ''; /* Nécessaire pour créer la ligne */
-    position: absolute; /* Positionnée par rapport au lien */
-    bottom: -3px; /* Décalage sous le texte */
-    left: 0; /* Commence à gauche */
-    width: 0; /* Largeur initiale = 0 */
-    height: 2px; /* Épaisseur de la ligne */
-    background: linear-gradient(90deg, var(--primary), var(--secondary)); /* Dégradé cyan → magenta */
-    transition: width 0.3s ease; /* Transition de largeur lors du hover */
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.3s ease;
 }
 
 /* Au survol, la ligne s'étend sous le texte */
 header nav a:hover::after {
-    width: 100%; /* Ligne complète */
+    width: 100%;
 }
 
 /* Au survol, changement de couleur du texte */
 header nav a:hover {
-    color: var(--primary); /* Texte cyan */
+    color: var(--primary);
 }
-
 
 /* ==========================
    CONTENU PRINCIPAL
@@ -413,12 +426,19 @@ main h2 {
 
 /* Style principal du footer */
 footer {
-    background: rgba(10, 10, 10, 0.95); /* Fond sombre et légèrement transparent */
-    border-top: 1px solid rgba(0, 255, 255, 0.2); /* Bordure cyan subtile */
-    padding: 50px 50px 30px; /* Padding haut, côtés, bas */
-    margin-top: 100px; /* Décalage par rapport au contenu précédent */
+    background: rgba(10, 10, 10, 0.95);
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 50px 50px 30px; /* Padding large pour PC */
+    margin-top: 100px;
     position: relative;
     z-index: 2;
+}
+
+/* --- AJOUT CRUCIAL : Adaptation Mobile pour le Footer --- */
+@media (max-width: 768px) {
+    footer {
+        padding: 40px 20px 20px; /* On réduit fortement les marges sur les côtés */
+    }
 }
 
 /* Conteneur du contenu du footer */

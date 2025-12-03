@@ -1152,11 +1152,28 @@ footer {
     }
 }
 
-/* Classe initiale pour fade-in */
+/* On remet l'opacité à 0 pour garder l'effet de surprise au scroll */
 .fade-in {
-    opacity: 0; /* Invisible */
-    transform: translateY(30px); /* Décalage vers le bas */
-    transition: all 0.6s ease; /* Transition douce lors de l'ajout de la classe visible */
+    opacity: 0; 
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* =========================================
+   FIX GOOGLE & PREMIER AFFICHAGE
+   Force le haut de page à être visible immédiatement
+   ========================================= */
+.hero .fade-in, 
+.hero-content, 
+.glitch,
+.hero .subtitle {
+    opacity: 1 !important;       /* Force la visibilité */
+    transform: none !important;  /* Annule le décalage */
+    animation: none !important;  /* (Optionnel) Désactive l'animation fade-in sur le titre pour être sûr */
 }
 
 /* Classe activée pour rendre visible */
