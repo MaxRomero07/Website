@@ -1,42 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
 
 <url>
   <loc>https://maximenajac.fr/</loc>
-  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://maximenajac.fr/cours-maths.html</loc>
-  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://maximenajac.fr/cours-physique.html</loc>
-  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://maximenajac.fr/publications.html</loc>
-  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://maximenajac.fr/sport.html</loc>
-  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://maximenajac.fr/index.html</loc>
-  <lastmod>2025-12-02T21:09:10+00:00</lastmod>
-  <priority>0.64</priority>
+  <lastmod>2025-12-04T10:00:00+00:00</lastmod> <priority>1.00</priority>
+  
+  <image:image>
+    <image:loc>https://maximenajac.fr/assets/maxime-najac-profil.png</image:loc>
+    <image:title>Maxime Najac - Profil</image:title>
+    <image:caption>Maxime Najac - Ingénieur, Enseignant et Auteur Scientifique</image:caption>
+  </image:image>
+
+  <image:image>
+    <image:loc>https://maximenajac.fr/assets/maxime-najac-contact.png</image:loc>
+    <image:title>Maxime Najac - Contact</image:title>
+    <image:caption>Contact Maxime Najac - Cours particuliers et Consulting IA</image:caption>
+  </image:image>
 </url>
 
+<url>
+  <loc>https://maximenajac.fr/cours-maths.html</loc>
+  <priority>0.80</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/cours-physique.html</loc>
+  <priority>0.80</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/cours-ingenierie.html</loc>
+  <priority>0.80</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/cours-info.html</loc>
+  <priority>0.80</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/publications.html</loc>
+  <priority>0.80</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/projets-raytracing.html</loc>
+  <priority>0.80</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/sport.html</loc>
+  <priority>0.80</priority>
+</url>
 
 </urlset>
