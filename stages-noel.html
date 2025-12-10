@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stages de Noël - Maxime Najac</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="stages-noel.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+</head>
+<body>
+    <ul class="lightrope">
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li>
+</ul>
+
+    <a href="index.html" class="nav-back">← Accueil</a>
+
+    <div id="christmas-bg">
+        <canvas id="c2"></canvas>
+        <canvas id="c"></canvas>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="frost-card">
+            <h1>Stages Intensifs<br>Noël 2024</h1>
+            <p class="subtitle">
+                Préparez la rentrée de Janvier et les concours blancs avec une longueur d'avance.
+            </p>
+
+            <div class="details-box">
+                <h3>Formule Perfectionnement</h3>
+                <ul>
+                    <li><strong>Dates :</strong> Du 26 au 30 Décembre</li>
+                    <li><strong>Public :</strong> Terminale & CPGE (MPSI, PCSI...)</li>
+                    <li><strong>Matières :</strong> Mathématiques & Physique</li>
+                    <li><strong>Lieu :</strong> Distanciel (Zoom/Discord)</li>
+                </ul>
+            </div>
+
+            <p style="color: #bbb; font-size: 0.9rem; margin-bottom: 20px; text-align: center;">
+                Places limitées pour un suivi optimal.
+            </p>
+
+            <a href="mailto:contact@maximenajac.fr?subject=Inscription Stage Noel" class="cta-btn">
+                Réserver ma place
+            </a>
+        </div>
+    </div>
+
+<script>
+(function() {
+    const c = document.querySelector("#c");
+    const ctx = c.getContext("2d");
+    const c2 = document.querySelector("#c2");
+    const ctx2 = c2.getContext("2d");
+    
+    // Résolution
+    const cw = c.width = c2.width = 4000;
+    const ch = c.height = c2.height = 4000;
+    
+    const arr = []; 
+    const arr2 = [];
+    const garland = []; 
+    const T = Math.PI * 2;
+    
+    const defaultX = cw / 2;
+    const defaultY = ch / 2;
+    const m = { x: defaultX, y: 0 };
+    
+    const xTo = gsap.quickTo(m, "x", { duration: 1.5, ease: "expo" });
+    const yTo = gsap.quickTo(m, "y", { duration: 1.5, ease: "expo" });
+
+    // --- GESTION TACTILE ---
+    const handleMove = (e) => {
+        const rect = c.getBoundingClientRect();
+        const scaleX = cw / rect.width;
+        const scaleY = ch / rect.height;
+        let clientX, clientY;
+        if (e.touches && e.touches.length > 0) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        if (clientX !== undefined && clientY !== undefined) {
+            xTo((clientX - rect.left) * scaleX); 
+            yTo((clientY - rect.top) * scaleY);
+        }
+    };
+
+    const handleLeave = () => { xTo(defaultX); yTo(defaultY); };
+
+    window.addEventListener('pointermove', handleMove);
+    window.addEventListener('touchmove', handleMove, { passive: true });
+    window.addEventListener('touchend', handleLeave);
+    window.addEventListener('pointerleave', handleLeave);
+
+    // --- FONCTION GÉOMÉTRIQUE POUR L'ÉTOILE ---
+    function drawStarShape(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+        let rot = Math.PI / 2 * 3;
+        let x = cx;
+        let y = cy;
+        let step = Math.PI / spikes;
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - outerRadius);
+        for (let i = 0; i < spikes; i++) {
+            x = cx + Math.cos(rot) * outerRadius;
+            y = cy + Math.sin(rot) * outerRadius;
+            ctx.lineTo(x, y);
+            rot += step;
+
+            x = cx + Math.cos(rot) * innerRadius;
+            y = cy + Math.sin(rot) * innerRadius;
+            ctx.lineTo(x, y);
+            rot += step;
+        }
+        ctx.closePath();
+    }
+
+    // --- 1. CRÉATION DU SAPIN ---
+    for (let i = 0; i < 999; i++) {
+        // On identifie le sommet (index 0)
+        const isTop = (i === 0);
+
+        arr.push({
+            i: i, 
+            cx: cw/2, 
+            cy: gsap.utils.mapRange(0, 999, 1200, 2800, i), 
+            
+            // Si c'est l'étoile, elle ne tourne pas (r=0), sinon rayon normal
+            r: isTop ? 0 : ((i<900) ? gsap.utils.mapRange(0, 999, 5, 500, i) : 50), 
+            
+            // Marqueur pour le dessin
+            isRealStar: isTop,
+
+            dot: 3, 
+            prog: 0.25, 
+            s: 1 // Échelle de départ à 1 (100%)
+        });
+
+        const d = 99;
+        
+        // --- MODIFICATION ICI ---
+        // On crée la timeline de base (mouvement de rotation)
+        arr[i].t = gsap.timeline({ repeat: -1 })
+            .to(arr[i], { duration: d, prog: "+=1", ease: "slow(0.3, 0.4)" });
+
+        // On ajoute l'effet de clignotement (changement de taille 's') 
+        // SEULEMENT si ce n'est PAS l'étoile du sommet.
+        if (!isTop) {
+            arr[i].t.to(arr[i], { duration: d/2, s: 0.15, repeat: 1, yoyo: true, ease: "power3.inOut" }, 0);
+        }
+
+        // On lance l'animation à un moment aléatoire
+        arr[i].t.seek(Math.random() * d);
+        // ------------------------
+        
+        arr2.push({ x: cw * Math.random(), y: -9, i: i, s: 3 + 5 * Math.random(), a: 0.1 + 0.5 * Math.random() });
+        arr2[i].t = gsap.to(arr2[i], { ease: 'none', y: ch, repeat: -1 }).seek(Math.random() * 99).timeScale(arr2[i].s / 700);
+    }
+
+    // --- 2. CRÉATION DE LA GUIRLANDE ---
+    const garlandCount = 150; 
+    const garlandRot = { val: 0 }; 
+    
+    gsap.to(garlandRot, { val: Math.PI * 2, duration: 12, repeat: -1, ease: "none" });
+
+    for (let i = 0; i < garlandCount; i++) {
+        const norm = i / garlandCount; 
+        garland.push({
+            cy: gsap.utils.interpolate(1200, 2550, norm),
+            r: gsap.utils.interpolate(15, 520, norm),
+            baseAngle: norm * Math.PI * 12,
+            color: (i % 2 === 0) ? '#00ffff' : '#ff00ff'
+        });
+    }
+
+    ctx.globalCompositeOperation = "lighter"; 
+
+    // --- DESSIN DU SAPIN (BLANC) ---
+    function drawDot(p) {
+        ctx.fillStyle = ctx.strokeStyle = "#fff"; 
+        
+        const angle = p.prog * T;
+        const vs = 0.2; 
+        const x = Math.cos(angle) * p.r + p.cx;
+        const y = (Math.sin(angle) * p.r) * vs + p.cy;
+        const d = Math.sqrt((x - m.x)**2 + (y - m.y)**2);
+        
+        // Réglage fin (0.45)
+        const ms = gsap.utils.clamp(0.45, 1, d / 800);
+        
+        ctx.beginPath(); 
+        ctx.arc(x, y, p.dot * p.s / 2 / ms, 0, T); 
+        ctx.fill(); 
+        
+        // Trait fin
+        ctx.lineWidth = (p.dot * p.s / ms) * 0.5; 
+        ctx.stroke(); 
+    }
+
+    // --- DESSIN DE L'ÉTOILE ---
+    function drawRealStar(p) {
+        const starColor = '#FFCC44'; // Or chaud
+        ctx.fillStyle = ctx.strokeStyle = starColor;
+        
+        const d = Math.sqrt((p.cx - m.x)**2 + (p.cy - m.y)**2);
+        const ms = gsap.utils.clamp(0.45, 1, d / 800);
+        
+        // p.s reste maintenant à 1 pour l'étoile grâce à la modification
+        const scale = p.s / ms;
+
+        // Taille de l'étoile (Vous pouvez modifier 40 et 16 si elle est trop grosse)
+        const outerR = 40 * scale;
+        const innerR = 16 * scale;
+
+        drawStarShape(ctx, p.cx, p.cy, 5, outerR, innerR);
+        ctx.fill();
+
+        // Halo fin autour de l'étoile
+        ctx.lineWidth = 6 / ms;
+        ctx.globalAlpha = 0.6;
+        ctx.stroke();
+        ctx.globalAlpha = 1; 
+    }
+
+    // --- DESSIN DE LA GUIRLANDE ---
+    function drawGarland(p) {
+        const angle = p.baseAngle + garlandRot.val;
+        const vs = 0.2;
+        const x = Math.cos(angle) * p.r + (cw/2);
+        const y = (Math.sin(angle) * p.r) * vs + p.cy;
+
+        const d = Math.sqrt((x - m.x)**2 + (y - m.y)**2);
+        const ms = gsap.utils.clamp(0.45, 1, d / 800);
+
+        ctx.fillStyle = p.color;
+        ctx.strokeStyle = p.color.replace(')', ', 0.15)').replace('rgb', 'rgba'); 
+
+        ctx.beginPath();
+        ctx.arc(x, y, 6 / ms, 0, T);
+        ctx.fill();
+        
+        ctx.lineWidth = 4 / ms; 
+        ctx.globalAlpha = 0.4; 
+        ctx.stroke();
+        ctx.globalAlpha = 1; 
+    }
+
+    function drawSnow(p) {
+        const ys = gsap.utils.interpolate(1.3, 0.1, p.y/ch);
+        ctx2.save(); ctx2.translate(p.x, p.y); ctx2.rotate(50 * p.t.progress());
+        ctx2.beginPath(); ctx2.arc(0, 0, p.s * ys, 0, T); 
+        ctx2.fillStyle = `rgba(255,255,255,${p.a * ys})`; 
+        ctx2.fill(); ctx2.restore();
+    }
+
+    // BOUCLE DE RENDU
+    gsap.ticker.add(() => {
+        ctx.clearRect(0, 0, cw, ch); 
+        ctx2.clearRect(0, 0, cw, ch);
+        
+        // On sépare le dessin de l'étoile des autres points
+        arr.forEach(p => {
+            if (p.isRealStar) {
+                drawRealStar(p);
+            } else {
+                drawDot(p);
+            }
+        });
+
+        garland.forEach(p => drawGarland(p));
+        arr2.forEach(p => drawSnow(p));
+    });
+    
+    gsap.from(arr, { duration: 1, dot: 0, ease: 'back.out(9)', stagger: -0.0009 });
+    gsap.fromTo(m, { y: -1000 }, { duration: 2, y: defaultY, ease: 'power2.out' });
+})();
+</script>
+</body>
+</html>

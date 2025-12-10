@@ -774,61 +774,166 @@ section {
    SKILLS SECTION
 ========================== */
 
-/* Conteneur principal des compétences */
+/* ==========================
+   SKILLS SECTION
+========================== */
+
+/* Conteneur principal */
 .skills-container {
-    display: flex; /* Flexbox pour alignement horizontal */
-    flex-wrap: wrap; /* Les éléments passent à la ligne si besoin */
-    gap: 20px; /* Espace entre les compétences */
-    justify-content: center; /* Centrage horizontal */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
-/* Chaque compétence représentée par un noeud circulaire */
+/* --- 1. LE SOCLE COMMUN (Votre code d'origine pour la forme) --- */
 .skills-container a.skill-node {
-    font-family: 'Audiowide', sans-serif; /* Police stylisée */
+    /* Structure (Ne pas toucher) */
+    font-family: 'Audiowide', sans-serif;
     width: 120px;
     height: 120px;
-    background: var(--bg-glass); /* Fond translucide */
-    border: 2px solid var(--primary); /* Bordure cyan */
-    border-radius: 50%; /* Forme circulaire */
-    display: flex; /* Flex pour centrer texte ou icône */
-    align-items: center; /* Centré vertical */
-    justify-content: center; /* Centré horizontal */
-    position: relative; /* Pour pseudo-éléments */
-    transition: all 0.3s ease; /* Transition douce pour hover */
-    cursor: pointer; /* Curseur pointer */
-    font-weight: 400; /* Texte normal */
-    font-size: 0.8rem; /* Taille du texte */
-    letter-spacing: 1px; /* Espacement lettres */
-    text-transform: uppercase; /* Majuscules */
-    color: var(--text-primary); /* Couleur texte principale */
-    text-decoration: none; /* Supprime le soulignement */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    
+    /* Texte (Ne pas toucher) */
+    font-weight: 400;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    
+    /* Fond et Transition */
+    background: var(--bg-glass);
+    transition: all 0.3s ease;
+    
+    /* BORDURE PAR DÉFAUT (sera écrasée plus bas par les couleurs spécifiques) */
+    border: 2px solid var(--primary); 
+    color: var(--text-primary);
 }
 
-/* Effet radial derrière le noeud */
+/* L'effet de halo interne (Base) */
 .skills-container a.skill-node::before {
-    content: ''; /* Nécessaire pour pseudo-élément */
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 50%; /* Cercle parfait */
-    background: radial-gradient(circle, var(--primary), transparent); /* Halo cyan */
-    opacity: 0; /* Invisible par défaut */
-    transition: all 0.3s ease; /* Transition douce */
-    transform: scale(1.2); /* Taille légèrement plus grande pour l'effet hover */
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: scale(1.2);
+    /* La couleur du dégradé est définie plus bas */
 }
 
-/* Hover sur le noeud */
+/* Animation au survol (Base) */
 .skills-container a.skill-node:hover {
-    transform: scale(1.1); /* Légèrement agrandi */
-    box-shadow: 0 0 30px var(--primary); /* Ombre cyan autour */
+    transform: scale(1.1);
 }
 
-/* Halo visible au hover */
 .skills-container a.skill-node:hover::before {
-    opacity: 0.3; /* Semi-transparent */
+    opacity: 0.3;
 }
+
+
+/* --- 2. LES COULEURS SPÉCIFIQUES (On change juste la couleur) --- */
+
+/* BULLE 1 : MATHS (Cyan) */
+.skills-container a.skill-node:nth-child(1) {
+    border-color: #00aeff; /* Bordure Cyan */
+    color: #00ffff;        /* Texte Cyan */
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.587); /* Légère lueur au repos */
+}
+.skills-container a.skill-node:nth-child(1):hover {
+    box-shadow: 0 0 30px #00ffff; /* Gros glow Cyan au survol */
+}
+.skills-container a.skill-node:nth-child(1)::before {
+    background: radial-gradient(circle, #00ffff, transparent); /* Halo interne Cyan */
+}
+
+
+
+/* BULLE 2 : INFORMATIQUE (Indigo Clair / Neon Purple-Blue) */
+.skills-container a.skill-node:nth-child(2) {
+    border-color: #6c69ff; /* Bleu-Violet lumineux */
+    color: #6c69ff;        /* Texte assorti */
+    box-shadow: 0 0 15px rgb(123, 93, 255);
+}
+
+.skills-container a.skill-node:nth-child(2):hover {
+    box-shadow: 0 0 30px #6c69ff; /* Glow intense */
+}
+
+.skills-container a.skill-node:nth-child(2)::before {
+    background: radial-gradient(circle, #6c69ff, transparent);
+}
+
+
+
+
+
+
+/* BULLE 3 : PHYSIQUE (Magenta) */
+.skills-container a.skill-node:nth-child(3) {
+        border-color: #e45ae9; /* Bleu-Violet lumineux */
+    color: #e45ae9;        /* Texte assorti */
+    box-shadow: 0 0 15px rgb(227, 97, 227);
+}
+
+.skills-container a.skill-node:nth-child(3):hover {
+    box-shadow: 0 0 30px #e45ae9; /* Glow intense */
+}
+
+.skills-container a.skill-node:nth-child(3)::before {
+    background: radial-gradient(circle, #e45ae9, transparent);
+}
+
+
+/* BULLE 4 : INFORMATIQUE (Jaune) */
+.skills-container a.skill-node:nth-child(4) {
+    border-color: #d69656; /* Bordure Jaune */
+    color: #d69656;        /* Texte Jaune */
+    box-shadow: 0 0 15px rgb(238, 202, 41);
+}
+.skills-container a.skill-node:nth-child(4):hover {
+    box-shadow: 0 0 30px #d69656;
+}
+.skills-container a.skill-node:nth-child(4)::before {
+    background: radial-gradient(circle, #d69656, transparent);
+}
+
+
+
+
+
+
+/* Classe pour le texte en dégradé animé */
+.gradient-text {
+    /* Cyan -> Magenta -> JAUNE DOUX (#FADA5E) */
+    background: linear-gradient(90deg, var(--primary), var(--secondary), #FADA5E);
+    
+    background-size: 100%; 
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#skills p {
+    margin-bottom: 50px !important;
+}
+
+/* ==========================
+   LOCATIONS SECTION (Améliorée)
+========================== */
+/* ==========================
+   LOCATIONS SECTION (Couleurs Synchronisées)
+========================== */
+
 .locations-container {
-    margin-top: 40px;
+    margin-top: 80px;
     text-align: center;
     color: var(--text-primary);
 }
@@ -837,40 +942,112 @@ section {
     font-family: 'Orbitron', sans-serif;
     color: var(--primary);
     font-size: 1.8rem;
-    margin-bottom: 25px;
-    text-shadow: 0 0 10px rgba(0,255,255,0.5);
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .locations-list {
     display: flex;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap; /* s'adapte aux écrans plus petits */
+    flex-wrap: wrap;
+    align-items: stretch; /* Force la même hauteur pour toutes les cartes */
 }
 
+/* Style de base de la carte (Structure) */
 .location-card {
-    background: var(--bg-card);
-    padding: 20px;
+    background: var(--bg-glass); 
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    
+    padding: 30px 20px;
     border-radius: 15px;
-    width: 200px;
-    box-shadow: 0 0 15px rgba(0,255,255,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
+    width: 240px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.location-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px var(--primary), 0 0 40px var(--secondary);
-}
-
+/* Typographie */
 .location-card h4 {
-    margin-bottom: 10px;
-    color: var(--primary);
+    margin-bottom: 15px;
     font-family: 'Audiowide', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .location-card p {
     color: var(--text-secondary);
     font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- VARIATIONS DE COULEURS (Basées sur vos codes) --- */
+
+/* 1. PARIS (Utilise les couleurs de BULLE 1 : MATHS - Cyan) */
+.location-card:nth-child(1) {
+    border-top: 4px solid #00ffff; /* Bordure Cyan Maths */
+}
+.location-card:nth-child(1) h4 {
+    color: #00ffff; /* Texte Cyan Maths */
+}
+.location-card:nth-child(1):hover {
+    transform: translateY(-5px);
+    /* Shadow issue de la Bulle 1 */
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.587); 
+    border-color: #00aeff;
+}
+
+/* 2. MONTPELLIER (Utilise les couleurs de BULLE 2 : INFO - Indigo) */
+.location-card:nth-child(2) {
+    border-top: 4px solid #6c69ff; /* Bordure Indigo */
+}
+.location-card:nth-child(2) h4 {
+    color: #6c69ff; /* Texte Indigo */
+}
+.location-card:nth-child(2):hover {
+    transform: translateY(-5px);
+    /* Shadow issue de la Bulle 2 */
+    box-shadow: 0 10px 30px rgb(123, 93, 255); 
+    border-color: #6c69ff;
+}
+
+/* 3. TOULOUSE (Utilise les couleurs de BULLE 3 : PHYSIQUE - Magenta) */
+.location-card:nth-child(3) {
+    border-top: 4px solid #e45ae9; /* Bordure Magenta */
+}
+.location-card:nth-child(3) h4 {
+    color: #e45ae9; /* Texte Magenta */
+}
+.location-card:nth-child(3):hover {
+    transform: translateY(-5px);
+    /* Shadow issue de la Bulle 3 */
+    box-shadow: 0 10px 30px rgb(227, 97, 227); 
+    border-color: #e45ae9;
+}
+
+/* 4. SACLAY (Utilise les couleurs de BULLE 4 : INFO - Jaune Doux) */
+.location-card:nth-child(4) {
+    border-top: 4px solid #d69656; /* Bordure Jaune doux */
+}
+.location-card:nth-child(4) h4 {
+    color: #d69656; /* Texte Jaune doux */
+}
+.location-card:nth-child(4):hover {
+    transform: translateY(-5px);
+    /* Shadow issue de la Bulle 4 (plus lumineuse que le texte, comme dans votre source) */
+    box-shadow: 0 10px 30px rgb(238, 202, 41); 
+    border-color: #d69656;
 }
 
 /* ==========================

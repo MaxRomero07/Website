@@ -66,56 +66,124 @@ body::before {
 /* ==========================
    HEADER
 ========================== */
+/* ==========================
+   TITRES (H1 & H2) - STYLE "NEON BOLD"
+========================== */
+
+/* 1. Titre principal de la page (H1) */
 .page-title {
-    text-align: center;
     font-family: 'Orbitron', sans-serif;
-    font-size: 3rem;
-    color: var(--primary);
-    margin: 30px 0;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    text-shadow: 0 0 10px rgba(0,255,255,0.5),
-                 0 0 20px rgba(0,255,255,0.3),
-                 0 0 30px rgba(0,255,255,0.2);
-    animation: glowTitle 2s ease-in-out infinite alternate;
-    padding: 0 10px; /* Sécurité pour ne pas coller aux bords sur mobile */
-}
-
-header nav {
-    padding: 15px 50px;
-    background: rgba(10,10,10,0.95);
-    border-bottom: 1px solid rgba(0,255,255,0.2);
-    /* Ajout pour centrer proprement */
-    display: flex;
-    justify-content: center;
-}
-
-header nav a {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-header nav a::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    transition: width 0.3s ease;
-}
-
-header nav a:hover::after {
+    
+    /* TAILLE RÉDUITE */
+    font-size: 2.5rem; 
+    
+    font-weight: 700;
+    color: #6c69ff; /* Violet */
+    
+    text-align: center;
     width: 100%;
+    margin: 30px 0 30px 0;
+    padding: 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px; /* Espacement réduit un peu aussi */
+    position: relative;
+    
+    /* Lueur Violette */
+    text-shadow: 0 0 10px rgba(108, 105, 255, 0.8), 
+                 0 0 20px rgba(108, 105, 255, 0.6),
+                 0 0 30px rgba(108, 105, 255, 0.4);
+                 
+    animation: titleGlow 2s ease-in-out infinite alternate;
 }
 
-header nav a:hover {
-    color: var(--primary);
+/* 2. Titres des sections (H2) */
+main h2 {
+    font-family: 'Orbitron', sans-serif;
+    
+    /* TAILLE RÉDUITE */
+    font-size: 1.3rem; 
+    
+    font-weight: 700;
+    color: #6c69ff; /* Violet (Même couleur que H1) */
+    
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    /* Lueur Violette (Identique H1) */
+    text-shadow: 0 0 10px rgba(108, 105, 255, 0.8), 
+                 0 0 20px rgba(108, 105, 255, 0.6),
+                 0 0 30px rgba(108, 105, 255, 0.4);
+                 
+    animation: titleGlow 2s ease-in-out infinite alternate;
 }
+
+/* 3. Animation de lueur (Violette) */
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 10px rgba(108, 105, 255, 0.8), 
+                     0 0 20px rgba(108, 105, 255, 0.6),
+                     0 0 30px rgba(108, 105, 255, 0.4);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(108, 105, 255, 1), 
+                     0 0 35px rgba(108, 105, 255, 0.8), 
+                     0 0 50px rgba(108, 105, 255, 0.6);
+    }
+}
+
+/* Ajustement Mobile */
+@media (max-width: 900px) {
+    .page-title {
+        /* On le passe à 1.5rem (au lieu de 2rem) pour qu'il soit plus petit que sur PC */
+        font-size: 1.5rem; 
+    }
+    main h2 {
+        font-size: 1.1rem; 
+    }
+}
+
+
+/* Navigation dans le header */
+header nav {
+    padding: 15px 50px; /* Padding interne haut/bas et gauche/droite */
+    background: rgba(10,10,10,0.95); /* Fond sombre semi-transparent */
+    border-bottom: 1px solid rgba(0,255,255,0.2); /* Ligne néon sous la nav */
+}
+
+/* Liens de navigation */
+header nav a {
+    color: var(--text-primary); /* Texte blanc */
+    text-decoration: none; /* Supprime le soulignement */
+    font-weight: bold; /* Texte en gras */
+    transition: all 0.3s ease; /* Transition douce pour hover */
+    position: relative; /* Nécessaire pour ::after */
+}
+
+/* Ligne décorative sous les liens (effet hover) */
+header nav a::after {
+    content: ''; /* Nécessaire pour créer la ligne */
+    position: absolute; /* Positionnée par rapport au lien */
+    bottom: -3px; /* Décalage sous le texte */
+    left: 0; /* Commence à gauche */
+    width: 0; /* Largeur initiale = 0 */
+    height: 2px; /* Épaisseur de la ligne */
+    background: linear-gradient(90deg, var(--primary), var(--secondary)); /* Dégradé cyan → magenta */
+    transition: width 0.3s ease; /* Transition de largeur lors du hover */
+}
+
+/* Au survol, la ligne s'étend sous le texte */
+header nav a:hover::after {
+    width: 100%; /* Ligne complète */
+}
+
+/* Au survol, changement de couleur du texte */
+header nav a:hover {
+    color: var(--primary); /* Texte cyan */
+}
+
 
 /* ==========================
    CONTENU PRINCIPAL
@@ -130,24 +198,8 @@ main {
     width: 100%; /* S'assure que le main reste dans les clous */
 }
 
-main h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.3rem;
-    font-family: 'Orbitron', sans-serif;
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 0 0 10px rgba(0,255,255,0.5),
-                 0 0 20px rgba(0,255,255,0.3),
-                 0 0 30px rgba(0,255,255,0.2);
-    animation: glowTitle 2s ease-in-out infinite alternate;
-}
 
-@keyframes glowTitle {
-    0% { opacity: 0.8; text-shadow: 0 0 10px rgba(0,255,255,0.5); }
-    100% { opacity: 1; text-shadow: 0 0 20px rgba(0,255,255,0.8), 0 0 40px rgba(0,255,255,0.6); }
-}
+
 
 /* ==========================
    SECTION CPGE
@@ -188,14 +240,38 @@ main h2 {
     box-shadow: 0 0 25px var(--primary), 0 0 40px var(--secondary);
 }
 
+/* 3. Sous-titre : Maintenant avec le dégradé Cyan -> Magenta -> Jaune Doux */
 .cpge-subtitle {
+    /* --- Mise en page et Typographie (On garde) --- */
     text-align: center;
-    font-size: 1.3rem;
-    color: var(--secondary);
-    font-family: 'Orbitron', sans-serif;
     margin-bottom: 30px;
-    text-shadow: 0 0 5px rgba(255,0,255,0.5),
-                 0 0 10px rgba(255,0,255,0.3);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    /* --- LE DÉGRADÉ (Copié de .gradient-text) --- */
+    /* Cyan -> Magenta -> Jaune Doux (#FADA5E) */
+    background: linear-gradient(90deg, var(--primary), var(--secondary), #FADA5E);
+    
+    /* Assure que le dégradé s'étire bien */
+    background-size: 100%; 
+    
+    /* La "Magie" qui découpe le fond selon la forme du texte */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Rend le texte transparent pour voir le dégradé derrière */
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
+    
+    /* Pas d'ombre pour que le dégradé soit net */
+    text-shadow: none;
+}
+
+#skills p {
+    margin-bottom: 50px !important;
 }
 
 .cpge-text {
@@ -209,6 +285,34 @@ main h2 {
 /* ==========================
    SECTION UNIVERSITAIRES
 ========================== */
+
+/* --- STYLE DES LISTES ET TEXTES (Exo 2) --- */
+
+.cpge-text ul, .cpge-text li,
+.uni-text ul, .uni-text li {
+    font-family: 'Exo 2', sans-serif; /* Force la police */
+    font-weight: 300; /* 300 rend le texte un peu plus fin et élégant */
+    letter-spacing: 0.5px; /* Aère légèrement le texte */
+    margin-bottom: 8px; /* Espace entre les puces */
+}
+
+/* Style spécifique pour les "Titres" dans le texte (Filières couvertes, etc.) */
+.cpge-text strong,
+.uni-text strong {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700; /* Gras */
+    color: var(--primary); /* Met le texte en gras en Cyan pour le faire ressortir */
+    display: inline-block; /* Assure un bon alignement */
+    margin-top: 10px; /* Petit espace avant le titre */
+}
+
+/* Nettoyage des listes imbriquées (les listes dans les listes) */
+.cpge-text ul ul,
+.uni-text ul ul {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
 .uni-section {
     display: flex;
     flex-direction: row;
@@ -514,5 +618,80 @@ footer {
     }
     footer {
         padding: 40px 20px 20px; /* Réduire padding footer */
+    }
+}
+/* ==========================
+   ANIMATION "CREATURE" (BACKGROUND)
+========================== */
+/* =========================================
+   GESTION INTELLIGENTE DES ARRIÈRE-PLANS
+   PC = Créature / Mobile = Réseau Neurones
+========================================= */
+
+/* --- 1. CONFIGURATION CRÉATURE (PC) --- */
+#creature-wrapper {
+  display: flex; /* Visible par défaut sur PC */
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Derrière le texte (qui est z-index 2) */
+  pointer-events: none; /* CRUCIAL : Laisse passer les clics */
+  overflow: hidden;
+}
+
+#creature {
+  font-size: 0.6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150em;
+  height: 150em;
+  flex-wrap: wrap;
+}
+
+#creature div {
+  transform-style: preserve-3d;
+  position: relative;
+  width: 4em;
+  height: 4em;
+  margin: 3em;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  mix-blend-mode: screen; 
+  background-color: var(--primary);
+}
+
+/* --- 2. CONFIGURATION RÉSEAU NEURONES (MOBILE) --- */
+#neural-bg {
+  display: none; /* Caché par défaut sur PC */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --- 3. AJUSTEMENTS GLOBAUX --- */
+/* La grille néon existante doit être tout au fond */
+body::before {
+    z-index: -1; 
+}
+
+/* --- 4. BASCULE MOBILE (MEDIA QUERY) --- */
+@media (max-width: 900px) {
+    /* On cache la Créature sur mobile (trop lourd) */
+    #creature-wrapper {
+        display: none !important; 
+    }
+
+    /* On affiche le Réseau de Neurones sur mobile (plus léger) */
+    #neural-bg {
+        display: block !important;
     }
 }

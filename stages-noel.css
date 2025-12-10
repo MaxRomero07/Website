@@ -1,0 +1,336 @@
+/* stages-noel.css */
+
+/* RESET TOTAL */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #000;
+    font-family: 'Exo 2', sans-serif;
+    color: white;
+    overflow-x: hidden; /* Important pour éviter le scroll horizontal à cause du décalage */
+    width: 100vw;
+    min-height: 100vh;
+}
+
+/* --- LE FOND ANIMÉ (L'ARBRE) --- */
+#christmas-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    /* ASTUCE : On décale le fond de 25% vers la droite. 
+       L'arbre étant au centre du canvas, il se retrouve à droite de l'écran */
+    transform: translateX(25%); 
+    transition: transform 0.5s ease; /* Transition douce si on redimensionne */
+}
+
+canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- BOUTON RETOUR --- */
+.nav-back {
+    position: fixed;
+    top: 60px;
+    left: 40px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #00ffff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+.nav-back:hover {
+    background: #00ffff;
+    color: #000;
+    box-shadow: 0 0 15px #00ffff;
+}
+
+/* --- CONTENEUR PRINCIPAL --- */
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    /* CHANGEMENT ICI : On aligne à gauche au lieu de centrer */
+    justify-content: flex-start; 
+    align-items: center;
+    /* On laisse de l'espace à gauche pour ne pas coller au bord */
+    padding-left: 10%; 
+    padding-right: 20px;
+}
+
+/* --- LA CARTE DE TEXTE --- */
+.frost-card {
+    background: rgba(12, 20, 35, 0.85); /* Un peu plus opaque pour la lisibilité */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    
+    /* On limite la largeur pour laisser la place à l'arbre à droite */
+    width: 100%;
+    max-width: 550px; 
+    
+    text-align: left; /* Texte aligné à gauche c'est souvent plus propre */
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    animation: slideInLeft 1s ease-out;
+}
+
+.frost-card h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    color: #00ffff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+/* --- BOITE DETAILS --- */
+.details-box {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    padding: 25px;
+    margin: 25px 0;
+    text-align: left;
+    border-left: 4px solid #ff00ff;
+}
+
+.details-box h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #ff00ff;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.details-box ul {
+    list-style: none;
+}
+
+.details-box li {
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.details-box li strong {
+    color: white;
+    margin-right: 5px;
+}
+
+.details-box li::before {
+    content: "❄️";
+    margin-right: 12px;
+    font-size: 0.9rem;
+    margin-top: 3px; /* Alignement icone */
+}
+
+/* --- BOUTON CTA --- */
+.cta-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 18px 40px;
+    background: linear-gradient(90deg, #00ffff, #0088ff);
+    color: #000;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    width: 100%; /* Bouton pleine largeur dans la carte */
+    text-align: center;
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* --- RESPONSIVE MOBILE --- */
+/* Sur les écrans de moins de 1000px (Tablettes et Mobiles) */
+@media (max-width: 1000px) {
+    /* On annule le décalage de l'arbre pour le remettre au centre */
+    #christmas-bg {
+        transform: translateX(0);
+    }
+
+    /* On remet le contenu au centre */
+    .content-wrapper {
+        justify-content: center;
+        padding-left: 20px;
+    }
+
+    /* On centre le texte */
+    .frost-card {
+        text-align: center;
+        /* On passe de 0.85 à 0.95 pour que le texte soit bien lisible sur le sapin */
+        background: rgba(12, 20, 35, 0.95); 
+        backdrop-filter: blur(8px);
+        
+        /* Petit bonus : une marge en bas pour ne pas coller au bord sur petit écran */
+        margin-bottom: 50px; 
+    }
+    
+    .details-box {
+        text-align: left; /* On garde les listes à gauche quand même */
+    }
+
+    .frost-card h1 { font-size: 2rem; }
+    
+    .nav-back { 
+        /* ON CHANGE ICI AUSSI : On passe de 15px à 80px */
+        top: 80px; 
+        left: 15px; 
+        padding: 8px 15px; 
+        font-size: 0.8rem; 
+    }
+}
+/* --- GUIRLANDE LUMINEUSE (Lightrope) --- */
+.lightrope {
+    text-align: center;
+    white-space: nowrap;
+    overflow: visible;
+    position: absolute;
+    z-index: 5;
+    
+    /* --- CORRECTION ICI --- */
+    /* On enlève le -15px et on met 0, voire un peu de padding */
+    margin: 0; 
+    padding-top: 20px; /* On descend la guirlande de 20px pour tout voir */
+    /* ---------------------- */
+    
+    pointer-events: none;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.lightrope li {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 12px;
+    height: 28px;
+    border-radius: 50%;
+    margin: 0 20px; /* Espacement horizontal */
+    
+    /* Animation et couleur par défaut (Vert) */
+    background: rgba(0,247,165,1);
+    box-shadow: 0px 4.6px 24px 3px rgba(0,247,165,1);
+    animation: flash-1 2s infinite both;
+}
+
+/* Variantes de couleurs et timing */
+.lightrope li:nth-child(2n+1) {
+    background: rgba(0,255,255,1); /* Cyan */
+    box-shadow: 0px 4.6px 24px 3px rgba(0,255,255,0.5);
+    animation-name: flash-2;
+    animation-duration: 0.4s;
+}
+
+.lightrope li:nth-child(4n+2) {
+    background: rgba(247,0,148,1); /* Magenta/Rose */
+    box-shadow: 0px 4.6px 24px 3px rgba(247,0,148,1);
+    animation-name: flash-3;
+    animation-duration: 1.1s;
+}
+
+.lightrope li:nth-child(odd) { animation-duration: 1.8s; }
+.lightrope li:nth-child(3n+1) { animation-duration: 1.4s; }
+
+/* Le petit connecteur noir au dessus de l'ampoule */
+.lightrope li:before {
+    content: "";
+    position: absolute;
+    background: #222;
+    width: 10px;
+    height: 9.3px;
+    border-radius: 3px;
+    top: -4.6px;
+    left: 1px;
+}
+
+/* Le fil qui relie les ampoules */
+.lightrope li:after {
+    content: "";
+    top: -14px;
+    left: 9px;
+    position: absolute;
+    width: 52px;
+    height: 18.6px;
+    border-bottom: solid #222 2px;
+    border-radius: 50%;
+}
+
+.lightrope li:last-child:after {
+    content: none;
+}
+
+.lightrope li:first-child {
+    margin-left: -40px;
+}
+
+/* --- ANIMATIONS DE CLIGNOTEMENT --- */
+@keyframes flash-1 { 
+    0%, 100% { 
+        background: rgba(0,247,165,1);
+        box-shadow: 0px 4.6px 24px 3px rgba(0,247,165,1);
+    } 
+    50% { 
+        background: rgba(0,247,165,0.4);
+        box-shadow: 0px 4.6px 24px 3px rgba(0,247,165,0.2);
+    }
+}
+
+@keyframes flash-2 { 
+    0%, 100% { 
+        background: rgba(0,255,255,1);
+        box-shadow: 0px 4.6px 24px 3px rgba(0,255,255,1);
+    } 
+    50% { 
+        background: rgba(0,255,255,0.4);
+        box-shadow: 0px 4.6px 24px 3px rgba(0,255,255,0.2);
+    }
+}
+
+@keyframes flash-3 { 
+    0%, 100% { 
+        background: rgba(247,0,148,1);
+        box-shadow: 0px 4.6px 24px 3px rgba(247,0,148,1);
+    } 
+    50% { 
+        background: rgba(247,0,148,0.4);
+        box-shadow: 0px 4.6px 24px 3px rgba(247,0,148,0.2);
+    }
+}

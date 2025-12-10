@@ -1,5 +1,6 @@
 /* ==========================
-   PAGE ANNEXE MATHS (CPGE) - Effets néon
+   PAGE ANNEXE MATHS (CPGE)
+   STYLE HARMONISÉ (Identique Physique)
 ========================== */
 
 /* ==========================
@@ -19,252 +20,307 @@
    RESET CSS
 ========================== */
 * {
-    margin: 0;                /* Supprime marges par défaut */
-    padding: 0;               /* Supprime padding par défaut */
-    box-sizing: border-box;   /* Inclut padding et border dans les dimensions */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* ==========================
    STRUCTURE DE BASE
-   Pour footer collé en bas
 ========================== */
 html, body {
-    height: 100%; /* Permet de prendre toute la hauteur de la page */
+    height: 100%;
 }
 
 body {
-    display: flex;                 /* Utilise flex pour aligner le contenu */
-    flex-direction: column;        /* Contenu en colonne (header + main + footer) */
-    min-height: 100vh;             /* Minimum hauteur = hauteur de la fenêtre */
-    font-family: 'Exo 2', sans-serif; /* Police principale */
-    background-color: var(--bg-dark); /* Fond sombre */
-    color: var(--text-primary);        /* Texte blanc */
-    line-height: 1.6;                 /* Interligne */
-    overflow-x: hidden;               /* Supprime le scroll horizontal */
-    position: relative;               /* Pour pseudo-éléments ou overlays */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Exo 2', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
 }
 
 /* ==========================
    GRILLE NÉON SUBTILE DERRIÈRE
 ========================== */
 body::before {
-    content: ''; /* Nécessaire pour générer le pseudo-élément */
-    position: fixed; /* Toujours visible à l'écran */
-    top: 0; left: 0; right: 0; bottom: 0; /* Recouvre toute la page */
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: repeating-linear-gradient(
         0deg,
         transparent,
         transparent 2px,
         rgba(0, 255, 255, 0.03) 2px,
         rgba(0, 255, 255, 0.03) 4px
-    ); /* Grille cyan subtile */
-    pointer-events: none; /* Ne bloque pas les interactions */
-    z-index: 1; /* Derrière le contenu */
+    );
+    pointer-events: none;
+    z-index: 1;
 }
-
 
 /* ==========================
-   HEADER
+   HEADER & NAVIGATION
 ========================== */
-
-/* Titre de la page */
-.page-title {
-    text-align: center; /* Centre le texte horizontalement */
-    font-family: 'Orbitron', sans-serif; /* Police du titre, même style que tes h2 */
-    font-size: 3rem; /* Taille du texte */
-    color: var(--primary); /* Couleur cyan */
-    margin: 30px 0; /* Marge haut/bas de 30px */
-    text-transform: uppercase; /* Texte en majuscules */
-    letter-spacing: 4px; /* Espacement entre les lettres */
-    text-shadow: 0 0 10px rgba(0,255,255,0.5),
-                 0 0 20px rgba(0,255,255,0.3),
-                 0 0 30px rgba(0,255,255,0.2); /* Effet néon */
-    animation: glowTitle 2s ease-in-out infinite alternate; /* Animation d’un glow pulsé */
-}
-
-/* Navigation dans le header */
 header nav {
-    padding: 15px 50px; /* Padding interne haut/bas et gauche/droite */
-    background: rgba(10,10,10,0.95); /* Fond sombre semi-transparent */
-    border-bottom: 1px solid rgba(0,255,255,0.2); /* Ligne néon sous la nav */
+    padding: 15px 50px;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid rgba(0,255,255,0.2);
 }
 
-/* Liens de navigation */
 header nav a {
-    color: var(--text-primary); /* Texte blanc */
-    text-decoration: none; /* Supprime le soulignement */
-    font-weight: bold; /* Texte en gras */
-    transition: all 0.3s ease; /* Transition douce pour hover */
-    position: relative; /* Nécessaire pour ::after */
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-/* Ligne décorative sous les liens (effet hover) */
 header nav a::after {
-    content: ''; /* Nécessaire pour créer la ligne */
-    position: absolute; /* Positionnée par rapport au lien */
-    bottom: -3px; /* Décalage sous le texte */
-    left: 0; /* Commence à gauche */
-    width: 0; /* Largeur initiale = 0 */
-    height: 2px; /* Épaisseur de la ligne */
-    background: linear-gradient(90deg, var(--primary), var(--secondary)); /* Dégradé cyan → magenta */
-    transition: width 0.3s ease; /* Transition de largeur lors du hover */
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.3s ease;
 }
 
-/* Au survol, la ligne s'étend sous le texte */
 header nav a:hover::after {
-    width: 100%; /* Ligne complète */
+    width: 100%;
 }
 
-/* Au survol, changement de couleur du texte */
 header nav a:hover {
-    color: var(--primary); /* Texte cyan */
+    color: var(--primary);
 }
 
+/* ==========================
+   TITRES (STYLE PHYSIQUE - VIOLET)
+========================== */
+/* 1. Titre principal (H1) */
+.page-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    
+    /* COULEUR CYAN */
+    color: #00ffff; 
+    
+    text-align: center;
+    width: 100%;
+    margin: 30px 0 30px 0;
+    padding: 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    
+    /* Lueur Cyan (RGB: 0, 255, 255) */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 
+                 0 0 20px rgba(0, 255, 255, 0.8),
+                 0 0 30px rgba(0, 255, 255, 0.8);
+                 
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
 
+/* 2. Titres de sections (H2) */
+main h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    
+    /* COULEUR CYAN */
+    color: #00ffff; 
+    
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    /* Lueur Cyan */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 
+                 0 0 20px rgba(0, 255, 255, 0.8),
+                 0 0 30px rgba(0, 255, 255, 0.8);
+                 
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+/* Animation Cyan */
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 
+                     0 0 20px rgba(0, 255, 255, 0.8),
+                     0 0 30px rgba(0, 255, 255, 0.8);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 
+                     0 0 35px rgba(0, 255, 255, 0.8), 
+                     0 0 50px rgba(0, 255, 255, 0.8);
+    }
+}
 /* ==========================
    CONTENU PRINCIPAL
 ========================== */
 main {
-    flex: 1; /* occupe tout l'espace disponible entre header et footer */
-    padding: 100px 20px 50px; /* espace interne haut, côtés et bas */
-    max-width: 1200px; /* largeur maximale pour le contenu */
-    margin: 0 auto; /* centre horizontalement */
-    position: relative; /* pour positionner éventuellement des pseudo-éléments */
-    z-index: 2; /* au-dessus de la grille néon de fond */
+    flex: 1;
+    padding: 100px 20px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    width: 100%;
 }
 
 /* ==========================
-   TITRE CPGE
-========================== */
-main h2 {
-    text-align: center; /* centre le titre horizontalement */
-    margin-bottom: 40px; /* espace sous le titre */
-    font-size: 2.3rem; /* taille du texte */
-    font-family: 'Orbitron', sans-serif; /* police du titre */
-    color: var(--primary); /* couleur cyan */
-    text-transform: uppercase; /* texte en majuscules */
-    letter-spacing: 3px; /* espacement entre les lettres */
-    text-shadow: 0 0 10px rgba(0,255,255,0.5),
-                 0 0 20px rgba(0,255,255,0.3),
-                 0 0 30px rgba(0,255,255,0.2); /* effet néon */
-    animation: glowTitle 2s ease-in-out infinite alternate; /* animation glow pulsé */
-}
-
-/* Animation du glow du titre */
-@keyframes glowTitle {
-    0% { opacity: 0.8; text-shadow: 0 0 10px rgba(0,255,255,0.5); } /* état initial */
-    100% { opacity: 1; text-shadow: 0 0 20px rgba(0,255,255,0.8), 0 0 40px rgba(0,255,255,0.6); } /* état final lumineux */
-}
-
-/* ==========================
-   SECTION CPGE (images + texte)
+   SECTION CPGE
 ========================== */
 .cpge-section {
-    display: flex; /* utilise flexbox */
-    flex-direction: row; /* images à gauche, texte à droite */
-    align-items: flex-start; /* aligne les items en haut */
-    justify-content: center; /* centre horizontalement */
-    gap: 60px; /* espace entre images et texte */
-    padding: 40px 20px; /* padding interne */
-    max-width: 1100px; /* largeur maximale */
-    margin: auto; /* centre horizontalement */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 60px;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: auto;
 }
 
-/* Logos des écoles */
 .cpge-images {
-    flex: 1; /* prend l’espace disponible */
-    display: flex; /* flexbox pour les logos */
-    flex-wrap: wrap; /* passe à la ligne si nécessaire */
-    gap: 25px; /* espace entre les logos */
-    justify-content: center; /* centre les logos */
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
 }
 
-/* Styles des images */
 .cpge-images img {
-    width: 120px; /* largeur fixe */
-    height: auto; /* hauteur proportionnelle */
-    background: var(--bg-card); /* fond sombre derrière l’image */
-    padding: 12px; /* espace autour de l’image */
-    border-radius: 12px; /* coins arrondis */
-    box-shadow: 0 0 10px rgba(0,255,255,0.2); /* ombre légère néon */
-    transition: transform 0.3s, box-shadow 0.3s; /* transition douce sur hover */
-    cursor: pointer; /* pointeur au survol */
+    width: 120px;
+    max-width: 100%;
+    height: auto;
+    background: var(--bg-card);
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,255,255,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
 }
 
-/* Effet hover sur les logos */
 .cpge-images img:hover {
-    transform: scale(1.15); /* zoom léger */
-    box-shadow: 0 0 25px var(--primary), 0 0 40px var(--secondary); /* glow cyan/magenta */
+    transform: scale(1.15);
+    box-shadow: 0 0 25px var(--primary), 0 0 40px var(--secondary);
 }
 
-/* ==========================
-   TEXTE CPGE
-========================== */
+/* Sous-titre avec Dégradé */
 .cpge-subtitle {
-    text-align: center; /* centre le sous-titre */
-    font-size: 1.3rem; /* taille du texte */
-    color: var(--secondary); /* couleur magenta */
-    font-family: 'Orbitron', sans-serif; /* police similaire aux titres */
-    margin-bottom: 30px; /* espace sous le sous-titre */
-    text-shadow: 0 0 5px rgba(255,0,255,0.5),
-                 0 0 10px rgba(255,0,255,0.3); /* petit glow */
-}
-
-.cpge-text {
-    flex: 1; /* prend l’espace restant */
-    max-width: 550px; /* largeur maximale du texte */
-    font-size: 1.1rem; /* taille de texte normale */
-    line-height: 1.8; /* interligne */
-    color: var(--text-secondary); /* gris clair */
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    background: linear-gradient(90deg, var(--primary), var(--secondary), #FADA5E);
+    background-size: 100%; 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
+    text-shadow: none;
 }
 
 /* ==========================
-   TARIFS
+   STYLES DES TEXTES & LISTES (STYLE HARMONISÉ)
 ========================== */
-.tarifs {
-    text-align: center;       /* centre le texte horizontalement */
-    color: var(--primary);    /* couleur néon cyan */
-    font-weight: bold;        /* texte en gras */
-    margin: 20px 0;           /* espace au-dessus et en dessous */
+.cpge-text, .uni-text {
+    flex: 1;
+    max-width: 550px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+.cpge-text > ul, .uni-text > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Titres en gras (CYAN + MAJUSCULES) */
+.cpge-text strong, .uni-text strong {
+    color: var(--primary);
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--secondary);
+    padding-left: 15px;
+}
+
+.cpge-text > ul > li:first-child strong,
+.uni-text > ul > li:first-child strong {
+    margin-top: 0;
+}
+
+/* Sous-listes avec flèches */
+.cpge-text ul ul, .uni-text ul ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.cpge-text ul ul li, .uni-text ul ul li {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.cpge-text ul ul li::before, .uni-text ul ul li::before {
+    content: '›';
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: -2px;
 }
 
 /* ==========================
    SECTION UNIVERSITAIRES
 ========================== */
 .uni-section {
-    display: flex; /* utilise flexbox pour aligner texte et images */
-    flex-direction: row; /* texte à gauche, images à droite */
-    align-items: center; /* aligne verticalement au centre */
-    justify-content: center; /* centre horizontalement */
-    gap: 60px; /* espace entre texte et images */
-    padding: 40px 20px; /* padding interne */
-    max-width: 1100px; /* largeur maximale de la section */
-    margin: auto; /* centre horizontalement */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: auto;
 }
 
-/* Texte de la section */
-.uni-text {
-    flex: 1; /* prend l’espace disponible */
-    max-width: 550px; /* largeur maximale du texte */
-    font-size: 1.1rem; /* taille du texte */
-    line-height: 1.8; /* interligne */
-    color: var(--text-secondary); /* couleur gris clair */
-}
-
-/* Images de la section */
 .uni-images {
-    flex: 1; /* prend l’espace disponible */
-    display: flex; /* flexbox pour les images */
-    flex-wrap: wrap; /* passe à la ligne si nécessaire */
-    gap: 25px; /* espace entre les images */
-    justify-content: center; /* centre les images horizontalement */
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
 }
 
-/* Styles des images (MODIFIÉ) */
 .uni-images img {
-    width: 360px; /* largeur fixe */
-    max-width: 100%; /* 👈 AJOUT CRITIQUE : L'image ne dépasse jamais la largeur de son conteneur parent */
-    height: 165px; /* hauteur fixe */
+    width: 360px;
+    max-width: 100%;
+    height: 165px;
     background: var(--bg-card);
     padding: 12px;
     border-radius: 12px;
@@ -274,165 +330,113 @@ main h2 {
     object-fit: cover;
 }
 
-/* Effet hover sur les images */
 .uni-images img:hover {
-    transform: scale(1.15); /* zoom léger */
-    box-shadow: 0 0 25px var(--primary), 0 0 40px var(--secondary); /* glow cyan/magenta */
+    transform: scale(1.15);
+    box-shadow: 0 0 25px var(--primary), 0 0 40px var(--secondary);
 }
 
 /* ==========================
-   RESPONSIVE UNIVERSITAIRES
+   TARIFS
 ========================== */
-@media (max-width: 900px) {
-    .uni-section {
-        flex-direction: column; /* texte au-dessus, images en dessous */
-        text-align: center; /* centre le texte */
-    }
-    .uni-text {
-        max-width: 100%; /* texte prend toute la largeur disponible */
-    }
-}
-
-/* ==========================
-   TARIFS SECTION
-========================== */
-
 #tarifs {
     margin-top: 4rem;
     text-align: center;
-  }
-  
-  /* Texte d’intro */
-  .tarifs {
+}
+
+.tarifs {
     color: var(--text-secondary, #ccc);
     font-size: 1.1rem;
     margin-bottom: 2rem;
-  }
-  
-  /* Bloc contenant le tableau */
-  .tarifs-table {
+    padding: 0 10px;
+}
+
+.tarifs-table {
     margin: 0 auto;
     max-width: 600px;
+    width: 100%;
     background: var(--bg-glass, rgba(255,255,255,0.05));
     border-radius: 20px;
     padding: 1.5rem;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
     overflow-x: auto;
-  }
-  
-  /* Tableau */
-  .table-tarifs {
+}
+
+.table-tarifs {
     width: 100%;
     border-collapse: collapse;
     color: var(--text-primary, #fff);
     font-size: 16px;
-  }
-  
-  /* Titres du tableau */
-  .table-tarifs th {
+}
+
+.table-tarifs th {
     color: var(--primary, cyan);
     font-family: 'Audiowide', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 12px;
     border-bottom: 2px solid rgba(0, 255, 255, 0.2);
-  }
-  
-  /* Cellules */
-  .table-tarifs td {
+}
+
+.table-tarifs td {
     padding: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Ligne survolée */
-  .table-tarifs tr:hover {
+}
+
+.table-tarifs tr:hover {
     background: rgba(0, 255, 255, 0.08);
     transition: background 0.3s ease;
-  }
-  
-  /* Adaptation mobile */
-  @media (max-width: 768px) {
-    .table-tarifs th,
-    .table-tarifs td {
-      font-size: 14px;
-      padding: 10px;
-    }
-  }
-  
-
+}
 
 /* ==========================
    BOUTON CONTACT
 ========================== */
-
-/* Conteneur pour centrer le bouton */
 .btn-container {
-    display: flex; /* utilise flexbox */
-    justify-content: center; /* centre le bouton horizontalement */
-    margin-top: 10px; /* espace au-dessus du bouton */
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
 
-/* Style du bouton principal */
 .btn-primary {
-    background-color: var(--primary); /* couleur de fond cyan */
-    color: #000; /* texte noir */
-    border: none; /* pas de bordure */
-    padding: 12px 25px; /* padding interne vertical/horizontal */
-    border-radius: 8px; /* coins arrondis */
-    cursor: pointer; /* pointeur au survol */
-    transition: all 0.3s ease; /* transition douce pour hover */
-    text-decoration: none; /* supprime le soulignement */
-    font-weight: bold; /* texte en gras */
-    display: inline-block; /* comportement inline mais permet padding/margin */
-    margin-top: 20px; /* espace au-dessus */
+    background-color: var(--primary);
+    color: #000;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
 }
 
-/* Effet hover sur le bouton */
 .btn-primary:hover {
-    background-color: var(--secondary); /* change la couleur de fond en magenta */
-    transform: scale(1.05); /* léger zoom */
-    box-shadow: 0 0 15px var(--primary), 0 0 25px var(--secondary); /* glow néon */
+    background-color: var(--secondary);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--primary), 0 0 25px var(--secondary);
 }
-
-/* ==========================
-   RESPONSIVE
-========================== */
-@media (max-width: 900px) {
-    .cpge-section {
-        flex-direction: column; /* colonne pour mobiles/tablettes */
-        text-align: center; /* centre le texte */
-    }
-    .cpge-text {
-        max-width: 100%; /* texte prend toute la largeur */
-    }
-}
-
 
 /* ==========================
    FOOTER
 ========================== */
-
-/* Style principal du footer */
 footer {
-    background: rgba(10, 10, 10, 0.95); /* Fond sombre et légèrement transparent */
-    border-top: 1px solid rgba(0, 255, 255, 0.2); /* Bordure cyan subtile */
-    padding: 50px 50px 30px; /* Padding haut, côtés, bas */
-    margin-top: 100px; /* Décalage par rapport au contenu précédent */
+    background: rgba(10, 10, 10, 0.95);
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 50px 50px 30px;
+    margin-top: 100px;
     position: relative;
     z-index: 2;
 }
 
-/* Conteneur du contenu du footer */
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid; /* utilisation d’une grille pour 3 sections */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* colonnes adaptatives */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px;
     margin-bottom: 30px;
 }
 
-/* Titres de chaque section */
 .footer-section h3 {
     font-family: 'Audiowide', sans-serif;
     color: var(--primary);
@@ -443,53 +447,43 @@ footer {
     letter-spacing: 2px;
 }
 
-/* Texte dans la section "Restons en contact" aligné à droite */
 .footer-section:last-child {
     text-align: right;
 }
 
-/* Liste des liens dans Navigation et Services */
 .footer-section ul {
-    list-style: none; /* supprime les puces */
+    list-style: none;
     padding: 0;
 }
 
 .footer-section ul li {
-    margin-bottom: 10px; /* espacement vertical */
+    margin-bottom: 10px;
 }
 
-/* Liens de Navigation et Services */
 .footer-section a {
-    color: var(--text-secondary); /* gris clair */
+    color: var(--text-secondary);
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .footer-section a:hover {
-    color: var(--primary); /* cyan */
+    color: var(--primary);
     transform: translateX(5px);
     display: inline-block;
 }
 
-/* ==========================
-   SOCIAL LINKS
-========================== */
-
-/* Conteneur des liens sociaux */
 .social-links {
     display: flex;
-    justify-content: flex-end; /* alignement à droite */
+    justify-content: flex-end;
     gap: 20px;
     margin-top: 20px;
 }
 
-/* Liens sociaux */
 .social-links a {
     display: inline-block;
     transition: all 0.3s ease;
 }
 
-/* Icônes sociales */
 .social-links a img {
     width: 40px;
     height: 40px;
@@ -497,18 +491,11 @@ footer {
     transition: all 0.3s ease;
 }
 
-/* Effet hover glow cyan sur les icônes */
 .social-links a:hover img {
     transform: translateY(-5px);
-    filter: drop-shadow(0 0 5px #00ffff)
-            drop-shadow(0 0 10px #00ffff)
-            drop-shadow(0 0 20px #00ffff)
-            drop-shadow(0 0 30px #00ffff);
+    filter: drop-shadow(0 0 5px #00ffff) drop-shadow(0 0 10px #00ffff);
 }
 
-/* ==========================
-   FOOTER BOTTOM
-========================== */
 .footer-bottom {
     font-family: 'Exo 2', sans-serif;
     text-align: center;
@@ -523,73 +510,91 @@ footer {
     color: white;
 }
 
-
 /* ==========================
    ANIMATIONS
 ========================== */
 @keyframes fadeInUp {
-    from {
-        opacity: 0; /* invisible au départ */
-        transform: translateY(30px); /* décalage vertical */
-    }
-    to {
-        opacity: 1; /* devient visible */
-        transform: translateY(0); /* revient à sa position */
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Classe générique pour fade-in */
 .fade-in {
-    opacity: 0; /* invisible au départ */
-    transform: translateY(30px); /* position initiale */
-    transition: all 0.6s ease; /* transition douce */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
 }
 
-/* Quand l'élément devient visible */
 .fade-in.visible {
-    opacity: 1; /* devient visible */
-    transform: translateY(0); /* revient à sa position normale */
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ==========================
-   RESPONSIVE CPGE ET GÉNÉRAL
+   RESPONSIVE DESIGN
 ========================== */
 @media (max-width: 900px) {
-    /* Inverse la direction pour que les images (ou logos) soient au-dessus du texte */
-    .cpge-section {
-        flex-direction: column; 
-        text-align: center; /* Centre le texte dans ce bloc */
-        gap: 40px; /* Réduit l'espace entre les éléments empilés */
-    }
-
-    .cpge-text {
-        max-width: 100%; /* Prend toute la largeur disponible pour le texte */
-        padding: 0 10px; /* Ajoute un petit espace sur les côtés du texte */
-    }
-
-    /* Le titre de la page doit être plus petit sur mobile */
+    /* Header */
     .page-title {
-        font-size: 2rem; /* Réduit la taille pour ne pas déborder */
+        font-size: 1.5rem; /* Ajusté pour mobile */
     }
-    .uni-images {
-        flex-direction: column; /* Les images s'empilent plutôt que d'être côte à côte */
-        gap: 15px;
+    main h2 {
+        font-size: 1.1rem; /* Ajusté pour mobile */
+    }
+    header nav {
+        padding: 15px 20px;
+    }
+
+    /* Sections */
+    .cpge-section, .uni-section {
+        flex-direction: column; 
+        text-align: center;
+        gap: 40px;
     }
     
-    /* Force les images universitaires à ne plus avoir de hauteur fixe sur mobile */
+    .cpge-text, .uni-text {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    /* Images */
+    .uni-images, .cpge-images {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+    
     .uni-images img {
         height: auto; 
     }
 
-    /* === AJOUTS POUR LE FOOTER === */
-    /* Centre le texte du dernier bloc de footer quand les blocs sont empilés */
+    /* Tableaux */
+    .table-tarifs th,
+    .table-tarifs td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    /* Footer */
     .footer-section:last-child {
         text-align: center;
     }
-    
-    /* Centre les icônes sociales */
     .social-links {
-        justify-content: center; 
+        justify-content: center;
     }
+    footer {
+        padding: 40px 20px 20px;
+    }
+}
 
+/* ==========================
+   BACKGROUNDS (Creature/Neurones)
+========================== */
+
+
+
+
+/* Bascule Mobile */
+@media (max-width: 900px) {
+    #creature-wrapper { display: none !important; }
+    #neural-bg { display: block !important; }
 }

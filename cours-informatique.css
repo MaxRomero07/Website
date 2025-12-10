@@ -1,0 +1,373 @@
+/* ==========================
+   PAGE ANNEXE INFORMATIQUE
+   STYLE "AMBER / GOLD"
+========================== */
+
+/* ==========================
+   VARIABLES CSS
+========================== */
+:root {
+    --primary: #d69656;       /* LA COULEUR DEMANDÉE (Ambre/Doré) */
+    --secondary: #ffbd7a;     /* Une version plus claire pour les dégradés */
+    --accent: #ffffff;        /* Blanc pour les contrastes forts */
+    --bg-dark: #0a0a0a;       /* Fond sombre principal */
+    --bg-card: #141414;       /* Fond des cartes légèrement plus clair */
+    --text-primary: #ffffff;  
+    --text-secondary: #c0c0c0;
+}
+
+/* ==========================
+   RESET CSS & BASE
+========================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Exo 2', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+}
+
+/* ==========================
+   GRILLE NÉON AMBRÉE
+========================== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Grille subtile couleur or/ambre */
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(214, 150, 86, 0.03) 2px,
+        rgba(214, 150, 86, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==========================
+   HEADER & NAVIGATION
+========================== */
+header nav {
+    padding: 15px 50px;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid rgba(214, 150, 86, 0.2); /* Bordure Ambre */
+}
+
+header nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.3s ease;
+}
+
+header nav a:hover::after { width: 100%; }
+header nav a:hover { color: var(--primary); }
+
+/* ==========================
+   TITRES (COULEUR #d69656)
+========================== */
+
+/* 1. Titre principal (H1) */
+.page-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    
+    color: var(--primary); /* #d69656 */
+    
+    text-align: center;
+    width: 100%;
+    margin: 30px 0 30px 0;
+    padding: 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    
+    /* Lueur Ambrée (RGB de d69656 est approx 214, 150, 86) */
+    text-shadow: 0 0 10px rgba(214, 150, 86, 0.6), 
+                 0 0 20px rgba(214, 150, 86, 0.4);
+                 
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+/* 2. Titres de sections (H2) */
+main h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    
+    color: var(--primary); /* #d69656 */
+    
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    text-shadow: 0 0 10px rgba(214, 150, 86, 0.5);
+}
+
+@keyframes titleGlow {
+    from { text-shadow: 0 0 10px rgba(214, 150, 86, 0.6); }
+    to { text-shadow: 0 0 20px rgba(214, 150, 86, 0.8), 0 0 30px rgba(214, 150, 86, 0.4); }
+}
+
+/* ==========================
+   CONTENU & SECTIONS
+========================== */
+main {
+    flex: 1;
+    padding: 80px 20px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+/* Layouts Flex */
+.cpge-section, .uni-section {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 60px;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Images */
+.cpge-images, .uni-images {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+
+.cpge-images img, .uni-images img {
+    max-width: 100%;
+    height: auto;
+    width: 130px; /* Taille icone */
+    background: var(--bg-card);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(214, 150, 86, 0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    object-fit: contain;
+}
+
+/* Hover effet doré */
+.cpge-images img:hover, .uni-images img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--primary);
+    border-color: var(--primary);
+}
+
+.cpge-subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Exo 2', sans-serif;
+    color: var(--text-secondary);
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ==========================
+   TEXTES & LISTES
+========================== */
+.cpge-text, .uni-text {
+    flex: 1;
+    max-width: 550px;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+.cpge-text strong, .uni-text strong {
+    color: var(--primary); /* #d69656 */
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--primary); /* Ligne verticale dorée */
+    padding-left: 15px;
+}
+
+.cpge-text ul, .uni-text ul { list-style: none; }
+
+.cpge-text ul ul li, .uni-text ul ul li {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 20px;
+}
+
+/* Puce de liste style code */
+.cpge-text ul ul li::before, .uni-text ul ul li::before {
+    content: '>';
+    color: var(--primary);
+    font-family: monospace;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* ==========================
+   TARIFS
+========================== */
+#tarifs { margin-top: 4rem; text-align: center; }
+.tarifs { color: var(--text-secondary); margin-bottom: 2rem; }
+
+.tarifs-table {
+    margin: 0 auto;
+    max-width: 600px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 1px solid rgba(214, 150, 86, 0.1);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    overflow-x: auto;
+}
+
+.table-tarifs {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-primary);
+}
+
+.table-tarifs th {
+    color: var(--primary);
+    font-family: 'Audiowide', sans-serif;
+    text-transform: uppercase;
+    padding: 12px;
+    border-bottom: 2px solid rgba(214, 150, 86, 0.3);
+}
+
+.table-tarifs td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table-tarifs tr:hover {
+    background: rgba(214, 150, 86, 0.05); /* Hover doré très léger */
+}
+
+/* ==========================
+   BOUTON CONTACT
+========================== */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn-primary {
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(214, 150, 86, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary);
+    color: #000; /* Texte noir sur fond or */
+    box-shadow: 0 0 25px rgba(214, 150, 86, 0.6);
+}
+
+/* ==========================
+   FOOTER
+========================== */
+footer {
+    background: rgba(10, 10, 10, 0.98);
+    border-top: 1px solid rgba(214, 150, 86, 0.2);
+    padding: 50px 50px 30px;
+    margin-top: 100px;
+    z-index: 2;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+}
+
+.footer-section h3 {
+    font-family: 'Audiowide', sans-serif;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 10px; }
+
+.footer-section a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover { color: var(--primary); }
+
+.social-links { display: flex; gap: 15px; }
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #666;
+    font-size: 0.8rem;
+}
+
+/* ==========================
+   ANIMATIONS & MOBILE
+========================== */
+.fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+    .cpge-section, .uni-section { flex-direction: column; text-align: center; }
+    .cpge-text strong, .uni-text strong { border-left: none; border-bottom: 2px solid var(--primary); padding-left: 0; padding-bottom: 5px; }
+    .cpge-text ul ul li::before, .uni-text ul ul li::before { position: relative; }
+    .footer-content { text-align: center; }
+    .social-links { justify-content: center; }
+}
