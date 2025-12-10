@@ -176,42 +176,76 @@ canvas {
 }
 
 /* --- RESPONSIVE MOBILE --- */
-/* Sur les écrans de moins de 1000px (Tablettes et Mobiles) */
+/* --- RESPONSIVE MOBILE & TABLETTE --- */
 @media (max-width: 1000px) {
-    /* On annule le décalage de l'arbre pour le remettre au centre */
+    
+    /* 1. Gestion du fond (Sapin) */
     #christmas-bg {
-        transform: translateX(0);
+        transform: translateX(0); /* On recentre l'arbre */
+        /* On le fige pour qu'il reste beau pendant le scroll */
+        position: fixed; 
+        z-index: 0;
     }
 
-    /* On remet le contenu au centre */
+    /* 2. Gestion du conteneur principal */
     .content-wrapper {
-        justify-content: center;
+        /* On désactive le centrage vertical strict qui prend tout l'écran */
+        display: block; 
+        
+        /* On ajoute de l'espace en haut pour laisser voir la guirlande et l'étoile */
+        padding-top: 130px; 
+        padding-bottom: 50px;
         padding-left: 20px;
+        padding-right: 20px;
+        
+        /* On autorise la hauteur automatique pour le scroll */
+        height: auto; 
+        min-height: 100vh;
     }
 
-    /* On centre le texte */
+    /* 3. La carte de texte */
     .frost-card {
-        text-align: center;
-        /* On passe de 0.85 à 0.95 pour que le texte soit bien lisible sur le sapin */
-        background: rgba(12, 20, 35, 0.95); 
+        /* Largeur adaptée : ne touche pas les bords */
+        width: 100%; 
+        max-width: 500px;
+        margin: 0 auto; /* Centré horizontalement */
+        
+        /* Un peu plus transparent pour laisser deviner le sapin derrière */
+        background: rgba(12, 20, 35, 0.85); 
         backdrop-filter: blur(8px);
         
-        /* Petit bonus : une marge en bas pour ne pas coller au bord sur petit écran */
-        margin-bottom: 50px; 
-    }
-    
-    .details-box {
-        text-align: left; /* On garde les listes à gauche quand même */
+        text-align: center;
+        padding: 30px 20px;
     }
 
-    .frost-card h1 { font-size: 2rem; }
+    .details-box {
+        text-align: left;
+    }
+
+    .frost-card h1 { 
+        font-size: 1.8rem; /* Titre un peu plus petit sur mobile */
+    }
     
+    /* 4. Le bouton Accueil */
     .nav-back { 
-        /* ON CHANGE ICI AUSSI : On passe de 15px à 80px */
-        top: 80px; 
-        left: 15px; 
+        /* CHANGEMENT MAJEUR : absolute au lieu de fixed */
+        position: absolute; 
+        
+        /* On le place tout en haut à gauche */
+        top: 20px; 
+        left: 20px; 
+        
+        /* Style ajusté pour mobile */
         padding: 8px 15px; 
-        font-size: 0.8rem; 
+        font-size: 0.8rem;
+        background: rgba(0, 0, 0, 0.8); /* Fond plus sombre pour lisibilité sur les lumières */
+        z-index: 20; /* Au-dessus de la guirlande si besoin */
+    }
+
+    /* Ajustement de la guirlande pour qu'elle ne soit pas coupée */
+    .lightrope {
+        padding-top: 10px;
+        position: absolute;
     }
 }
 /* --- GUIRLANDE LUMINEUSE (Lightrope) --- */
