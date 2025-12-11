@@ -178,66 +178,71 @@ canvas {
 /* --- RESPONSIVE MOBILE --- */
 /* --- RESPONSIVE MOBILE & TABLETTE --- */
 /* --- RESPONSIVE MOBILE (CORRECTIF FORCÉ) --- */
+/* --- RESPONSIVE MOBILE (CORRECTIF FINAL) --- */
 @media (max-width: 1000px) {
 
-    /* 1. On libère le conteneur principal */
+    /* 1. LE FOND (SAPIN) */
+    /* On le fixe en arrière-plan et on le centre */
+    #christmas-bg {
+        position: fixed !important;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        transform: translateX(0) !important; /* On annule le décalage PC */
+        z-index: 0;
+    }
+
+    /* 2. LE CONTENEUR PRINCIPAL */
     .content-wrapper {
-        display: block !important; /* Annule le flexbox qui centre tout */
-        min-height: auto !important; /* Annule la hauteur forcée */
-        height: auto !important;
+        /* On casse le centrage vertical */
+        display: block !important; 
         
-        /* C'est ICI qu'on gère l'espace :
-           160px permet de descendre le texte sous la guirlande et l'étoile */
-        padding-top: 160px; 
-        padding-bottom: 60px;
+        /* C'EST ICI LA CLÉ : */
+        /* On pousse le contenu vers le bas de 75% de la hauteur de l'écran.
+           Ainsi, au chargement, l'utilisateur voit 75% de sapin vide. */
+        padding-top: 75vh !important; 
+        
+        /* Marge en bas pour pouvoir scroller jusqu'au bout */
+        padding-bottom: 100px; 
         padding-left: 15px;
         padding-right: 15px;
         
-        /* On retire l'alignement centré */
-        justify-content: flex-start;
+        height: auto !important;
+        min-height: 100vh;
     }
 
-    /* 2. On recadre la carte de texte */
+    /* 3. LA CARTE DE TEXTE */
     .frost-card {
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 !important; /* On retire les marges auto bizarres */
-        background: rgba(12, 20, 35, 0.9); /* Plus foncé pour bien lire */
+        margin: 0 !important;
         
-        /* Optionnel : réduire un peu le padding interne */
-        padding: 25px 15px;
+        /* On renforce le fond pour bien lire par dessus le bas du sapin */
+        background: rgba(10, 15, 25, 0.95); 
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.8); /* Ombre vers le haut */
     }
 
-    /* 3. Le bouton Accueil : On le déplace sous la guirlande */
+    /* 4. LE BOUTON ACCUEIL */
     .nav-back {
-        position: absolute !important; /* Ne suit pas le scroll */
+        position: absolute !important; /* Il défilera avec la page et disparaîtra */
         
-        /* On le descend à 70px du haut pour qu'il soit SOUS la guirlande */
-        top: 70px !important; 
+        /* On le place assez haut pour ne pas gêner l'étoile, mais visible */
+        top: 100px !important; 
         
-        /* On le centre horizontalement pour faire plus propre sur mobile */
+        /* Centré horizontalement */
         left: 50% !important;
         transform: translateX(-50%);
         
-        /* Style visuel */
-        background: rgba(0, 0, 0, 0.8);
-        white-space: nowrap;
         font-size: 0.8rem;
-        z-index: 999; /* Toujours au dessus */
-    }
-
-    /* 4. Le fond (Sapin) */
-    #christmas-bg {
-        transform: translateX(0) !important;
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
+        padding: 8px 16px;
+        background: rgba(0, 0, 0, 0.5); /* Plus discret */
+        border-color: rgba(0, 255, 255, 0.5);
+        z-index: 20;
     }
     
-    /* 5. Ajustement du titre */
+    /* Ajustement titre mobile */
     .frost-card h1 {
         font-size: 1.8rem;
-        margin-top: 0;
     }
 }
 /* --- GUIRLANDE LUMINEUSE (Lightrope) --- */
