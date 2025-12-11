@@ -4,7 +4,7 @@
         const canvas = document.getElementById('neural-bg');
         const ctx = canvas.getContext('2d');
         let nodes = [];
-        let mouse = { x: 0, y: 0 };
+        let mouse = { x: -1000, y: -1000 };
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -138,10 +138,23 @@ function repelNodes() {
         });
 
         // Mouse move effect
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
+window.addEventListener('mousemove', (e) => {
+    // MODIFICATION : On ne met à jour la position que sur grand écran (> 1024px)
+    if (window.innerWidth > 1024) {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    } else {
+        // Sur mobile/tablette, on s'assure que la souris reste "loin" pour ne pas perturber
+        mouse.x = -1000;
+        mouse.y = -1000;
+    }
+});
+
+// Optionnel : Réinitialiser la position quand la souris quitte la fenêtre (sur PC)
+window.addEventListener('mouseout', () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
+});
 
         // Mobile menu toggle
         const mobileToggle = document.getElementById('mobile-toggle');
