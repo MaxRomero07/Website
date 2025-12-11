@@ -177,75 +177,67 @@ canvas {
 
 /* --- RESPONSIVE MOBILE --- */
 /* --- RESPONSIVE MOBILE & TABLETTE --- */
+/* --- RESPONSIVE MOBILE (CORRECTIF FORCÉ) --- */
 @media (max-width: 1000px) {
-    
-    /* 1. Gestion du fond (Sapin) */
-    #christmas-bg {
-        transform: translateX(0); /* On recentre l'arbre */
-        /* On le fige pour qu'il reste beau pendant le scroll */
-        position: fixed; 
-        z-index: 0;
-    }
 
-    /* 2. Gestion du conteneur principal */
+    /* 1. On libère le conteneur principal */
     .content-wrapper {
-        /* On désactive le centrage vertical strict qui prend tout l'écran */
-        display: block; 
+        display: block !important; /* Annule le flexbox qui centre tout */
+        min-height: auto !important; /* Annule la hauteur forcée */
+        height: auto !important;
         
-        /* On ajoute de l'espace en haut pour laisser voir la guirlande et l'étoile */
-        padding-top: 130px; 
-        padding-bottom: 50px;
-        padding-left: 20px;
-        padding-right: 20px;
+        /* C'est ICI qu'on gère l'espace :
+           160px permet de descendre le texte sous la guirlande et l'étoile */
+        padding-top: 160px; 
+        padding-bottom: 60px;
+        padding-left: 15px;
+        padding-right: 15px;
         
-        /* On autorise la hauteur automatique pour le scroll */
-        height: auto; 
-        min-height: 100vh;
+        /* On retire l'alignement centré */
+        justify-content: flex-start;
     }
 
-    /* 3. La carte de texte */
+    /* 2. On recadre la carte de texte */
     .frost-card {
-        /* Largeur adaptée : ne touche pas les bords */
-        width: 100%; 
-        max-width: 500px;
-        margin: 0 auto; /* Centré horizontalement */
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important; /* On retire les marges auto bizarres */
+        background: rgba(12, 20, 35, 0.9); /* Plus foncé pour bien lire */
         
-        /* Un peu plus transparent pour laisser deviner le sapin derrière */
-        background: rgba(12, 20, 35, 0.85); 
-        backdrop-filter: blur(8px);
-        
-        text-align: center;
-        padding: 30px 20px;
+        /* Optionnel : réduire un peu le padding interne */
+        padding: 25px 15px;
     }
 
-    .details-box {
-        text-align: left;
+    /* 3. Le bouton Accueil : On le déplace sous la guirlande */
+    .nav-back {
+        position: absolute !important; /* Ne suit pas le scroll */
+        
+        /* On le descend à 70px du haut pour qu'il soit SOUS la guirlande */
+        top: 70px !important; 
+        
+        /* On le centre horizontalement pour faire plus propre sur mobile */
+        left: 50% !important;
+        transform: translateX(-50%);
+        
+        /* Style visuel */
+        background: rgba(0, 0, 0, 0.8);
+        white-space: nowrap;
+        font-size: 0.8rem;
+        z-index: 999; /* Toujours au dessus */
     }
 
-    .frost-card h1 { 
-        font-size: 1.8rem; /* Titre un peu plus petit sur mobile */
+    /* 4. Le fond (Sapin) */
+    #christmas-bg {
+        transform: translateX(0) !important;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
     }
     
-    /* 4. Le bouton Accueil */
-    .nav-back { 
-        /* CHANGEMENT MAJEUR : absolute au lieu de fixed */
-        position: absolute; 
-        
-        /* On le place tout en haut à gauche */
-        top: 20px; 
-        left: 20px; 
-        
-        /* Style ajusté pour mobile */
-        padding: 8px 15px; 
-        font-size: 0.8rem;
-        background: rgba(0, 0, 0, 0.8); /* Fond plus sombre pour lisibilité sur les lumières */
-        z-index: 20; /* Au-dessus de la guirlande si besoin */
-    }
-
-    /* Ajustement de la guirlande pour qu'elle ne soit pas coupée */
-    .lightrope {
-        padding-top: 10px;
-        position: absolute;
+    /* 5. Ajustement du titre */
+    .frost-card h1 {
+        font-size: 1.8rem;
+        margin-top: 0;
     }
 }
 /* --- GUIRLANDE LUMINEUSE (Lightrope) --- */
