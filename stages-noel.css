@@ -3,13 +3,27 @@
 /* RESET TOTAL */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html, body {
+    width: 100%;
+    max-width: 100%; /* Empêche tout dépassement */
+    overflow-x: hidden; /* Coupe tout ce qui dépasse sur les côtés */
+    background-color: #000;
+}
+/* CORRECTION DU BODY */
 body {
     background-color: #000;
     font-family: 'Exo 2', sans-serif;
     color: white;
-    overflow-x: hidden; /* Important pour éviter le scroll horizontal à cause du décalage */
-    width: 100vw;
+    
+    /* IMPORTANT : Utiliser 100% et non 100vw pour éviter le rouge et le débordement */
+    width: 100%; 
+    max-width: 100%;
+    
+    /* Coupe tout ce qui dépasse sur les côtés */
+    overflow-x: hidden; 
+    
     min-height: 100vh;
+    position: relative;
 }
 
 /* --- LE FOND ANIMÉ (L'ARBRE) --- */
@@ -36,7 +50,7 @@ canvas {
 
 /* --- BOUTON RETOUR --- */
 .nav-back {
-    position: fixed;
+    position: absolute;
     top: 60px;
     left: 40px;
     z-index: 100;
@@ -64,10 +78,17 @@ canvas {
     z-index: 10;
     min-height: 100vh;
     display: flex;
-    /* CHANGEMENT ICI : On aligne à gauche au lieu de centrer */
+    
+    /* 1. On garde l'alignement horizontal à gauche */
     justify-content: flex-start; 
-    align-items: center;
-    /* On laisse de l'espace à gauche pour ne pas coller au bord */
+    
+    /* 2. CHANGEMENT ICI : On aligne en HAUT au lieu du centre */
+    align-items: flex-start; 
+    
+    /* 3. AJOUT ICI : On pousse vers le bas (par exemple 30% de la hauteur de l'écran) */
+    padding-top: 15vh; 
+    
+    /* Le reste ne change pas */
     padding-left: 10%; 
     padding-right: 20px;
 }
