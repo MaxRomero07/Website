@@ -131,11 +131,21 @@ function repelNodes() {
         animate();
 
         // Handle window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
+let lastWidth = window.innerWidth; // On mémorise la largeur
+
+window.addEventListener('resize', () => {
+    // Si la largeur n'a pas changé (c'est juste la hauteur qui bouge à cause du scroll)
+    // ALORS ON ARRÊTE TOUT, on ne recharge pas le réseau.
+    if (window.innerWidth === lastWidth) {
+        return; 
+    }
+
+    // Si la largeur change vraiment (on tourne le téléphone), là on recharge.
+    lastWidth = window.innerWidth;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    init();
+});
 
         // Mouse move effect
 window.addEventListener('mousemove', (e) => {
