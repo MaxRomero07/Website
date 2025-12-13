@@ -51,7 +51,7 @@ canvas {
 /* --- BOUTON RETOUR --- */
 .nav-back {
     position: absolute;
-    top: 60px;
+    top: 70px;
     left: 40px;
     z-index: 100;
     background: rgba(0, 0, 0, 0.6);

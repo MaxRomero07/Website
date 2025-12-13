@@ -286,32 +286,77 @@ main {
    SECTION UNIVERSITAIRES
 ========================== */
 
-/* --- STYLE DES LISTES ET TEXTES (Exo 2) --- */
+/* =======================================================
+   REMPLACE TOUT LE BLOC ".cpge-text strong..." PAR CECI
+   POUR AVOIR LES BARRES VIOLETTES
+======================================================= */
 
+/* =======================================================
+   STYLES DES TEXTES & LISTES (Barre Violette SANS flèche)
+   Remplacer tout le bloc correspondant par celui-ci
+======================================================= */
+
+/* 1. RESET DES LISTES (On enlève les puces par défaut partout) */
 .cpge-text ul, .cpge-text li,
 .uni-text ul, .uni-text li {
-    font-family: 'Exo 2', sans-serif; /* Force la police */
-    font-weight: 300; /* 300 rend le texte un peu plus fin et élégant */
-    letter-spacing: 0.5px; /* Aère légèrement le texte */
-    margin-bottom: 8px; /* Espace entre les puces */
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* Style spécifique pour les "Titres" dans le texte (Filières couvertes, etc.) */
+/* 2. LES TITRES (STRONG) : JUSTE LA BARRE VIOLETTE */
 .cpge-text strong,
 .uni-text strong {
+    /* Typographie */
     font-family: 'Exo 2', sans-serif;
-    font-weight: 700; /* Gras */
-    color: var(--primary); /* Met le texte en gras en Cyan pour le faire ressortir */
-    display: inline-block; /* Assure un bon alignement */
-    margin-top: 10px; /* Petit espace avant le titre */
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary); /* Texte Cyan */
+
+    /* LA BARRE VIOLETTE (Gauche) */
+    display: block; /* Prend toute la largeur */
+    margin-top: 25px;
+    margin-bottom: 10px;
+    
+    border-left: 3px solid var(--secondary); /* <--- C'est la barre violette */
+    padding-left: 15px; /* Espace entre la barre et le texte */
+    
+    /* SÉCURITÉ : On s'assure qu'il n'y a RIEN d'autre */
+    position: relative;
+    background: transparent;
 }
 
-/* Nettoyage des listes imbriquées (les listes dans les listes) */
-.cpge-text ul ul,
-.uni-text ul ul {
-    margin-top: 5px;
-    margin-bottom: 15px;
-    padding-left: 20px;
+/* Enlève la marge du haut pour le tout premier titre */
+.cpge-text > ul > li:first-child strong,
+.uni-text > ul > li:first-child strong {
+    margin-top: 0;
+}
+
+/* 3. LES ÉLÉMENTS DE LISTE (SOUS LE TITRE) : SYMBOLE › */
+/* On cible "ul ul li" pour ne toucher que les listes imbriquées sous le titre */
+.cpge-text ul ul li, 
+.uni-text ul ul li {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 300;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 20px; /* Place pour la flèche */
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Le symbole flèche (›) pour les listes */
+.cpge-text ul ul li::before, 
+.uni-text ul ul li::before {
+    content: '›';          /* Le symbole */
+    color: var(--primary); /* Cyan */
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: -2px;
 }
 .uni-section {
     display: flex;
@@ -665,17 +710,6 @@ footer {
   background-color: var(--primary);
 }
 
-/* --- 2. CONFIGURATION RÉSEAU NEURONES (MOBILE) --- */
-#neural-bg {
-  display: none; /* Caché par défaut sur PC */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
 
 /* --- 3. AJUSTEMENTS GLOBAUX --- */
 /* La grille néon existante doit être tout au fond */
@@ -689,9 +723,241 @@ body::before {
     #creature-wrapper {
         display: none !important; 
     }
+}
+/* ==========================
+   FOND GALAXIE (Nouveau background)
+========================== */
+#particles-js {
+  position: fixed; /* Fixe pour couvrir tout l'écran même au scroll */
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* Le dégradé spatial demandé */
+  background: radial-gradient(ellipse at top, #0d0723 0%, #080514 100%); 
+  z-index: -10; /* Tout au fond */
+}
 
-    /* On affiche le Réseau de Neurones sur mobile (plus léger) */
-    #neural-bg {
-        display: block !important;
-    }
+/* ==========================
+   GESTION DES COUCHES (LAYERS)
+========================== */
+
+/* La créature doit être au-dessus des étoiles mais sous le texte */
+#creature-wrapper {
+    z-index: -5 !important; 
+    /* Assure-toi que le wrapper prend tout l'écran mais laisse passer les clics */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; 
+}
+
+/* On force le body à être transparent pour voir la galaxie */
+body {
+    background-color: transparent !important;
+}
+
+/* On désactive le background sombre par défaut pour laisser place à la galaxie */
+:root {
+    --bg-dark: transparent; 
+}
+
+/* ==========================
+   ÉTOILES FILANTES (CSS PUR)
+========================== */
+
+#shooting-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Laisse passer les clics */
+    z-index: -9; /* Juste au-dessus du fond galaxie (-10) */
+    overflow: hidden;
+}
+
+#shooting-stars span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 2px; /* Épaisseur de la traînée */
+    background: linear-gradient(-45deg, #00ffff, rgba(0, 0, 255, 0)); /* Dégradé Cyan vers transparent */
+    border-radius: 999px;
+    filter: drop-shadow(0 0 6px #00ffff); /* Petit effet néon cyan */
+    opacity: 0; /* Invisible au départ */
+    animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+}
+
+/* --- Définition des animations --- */
+
+/* Animation de la queue : elle s'allonge puis se rétrécit */
+@keyframes tail {
+  0% { width: 0; }
+  30% { width: 150px; } /* Longueur max de la traînée */
+  100% { width: 0; }
+}
+
+/* Animation du mouvement : traverse l'écran */
+@keyframes shooting {
+  0% {
+      transform: translateX(0);
+      opacity: 1; /* Apparaît d'un coup */
+  }
+  100% {
+      transform: translateX(1500px); /* Va très loin sur la droite (donc en bas à droite à cause de la rotation) */
+      opacity: 0; /* Disparaît à la fin */
+  }
+}
+
+/* --- Variation des étoiles (Position, Angle et Délai) --- */
+
+/* Étoile 1 : Diagonale classique (Coin haut gauche) */
+#shooting-stars span:nth-child(1) {
+    top: 0%;
+    left: 10%;
+    rotate: 45deg; /* Angle de chute */
+    animation-delay: 0s;
+    animation-duration: 3.5s;
+}
+
+/* Étoile 2 : Presque verticale (Milieu haut) */
+#shooting-stars span:nth-child(2) {
+    top: 0%;
+    left: 50%;
+    rotate: deg; /* Tombe presque tout droit */
+    animation-delay: 2s;
+    animation-duration: 4s;
+}
+
+/* Étoile 3 : Horizontale (Depuis la gauche) */
+#shooting-stars span:nth-child(3) {
+    top: 30%;
+    left: 0%;
+    rotate: 10deg; /* Traverse l'écran presque à plat */
+    animation-delay: 4s;
+    animation-duration: 3s;
+}
+
+/* Étoile 4 : Diagonale inversée (Vient de la droite vers la gauche) */
+/* Note : Pour celle-ci, on la place à droite et on tourne fort l'angle */
+#shooting-stars span:nth-child(4) {
+    top: 10%;
+    left: 100%; 
+    rotate: 135deg; /* Pointe vers le bas-gauche */
+    animation-delay: 6s;
+    animation-duration: 4.5s;
+}
+
+/* Étoile 5 : Diagonale basse (Depuis la gauche) */
+#shooting-stars span:nth-child(5) {
+    top: 60%;
+    left: 0%;
+    rotate: 30deg;
+    animation-delay: 8s;
+    animation-duration: 3.8s;
+}
+
+/* Étoile 6 : Verticale rapide (Coin haut droit) */
+#shooting-stars span:nth-child(6) {
+    top: 0%;
+    left: 90%;
+    rotate: 70deg;
+    animation-delay: 10s;
+    animation-duration: 4.2s;
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    overflow-x: hidden; /* Empêche le scroll horizontal */
+    overflow-y: auto;   /* Autorise le scroll vertical normal */
+}
+
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+/* ==========================
+   STYLE ANIMATION ONDES (NEON)
+========================== */
+#neon-section {
+    text-align: center;
+    margin: 80px 0;
+}
+
+#neon-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    margin: 0 auto;
+    border: 1px solid var(--secondary); /* Bordure Magenta pour changer */
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(72, 15, 72, 0.2);
+    background-color: #0b0b0b;
+    overflow: hidden;
+}
+
+#neon-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Interface (Boutons) à l'intérieur du cadre */
+.neon-ui {
+    position: absolute;
+    bottom: 15px; /* En bas pour ne pas gêner */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.neon-ui button {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+
+.neon-ui button:hover {
+    background: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.neon-meta {
+    font-size: 0.75rem;
+    color: #ddd;
+    margin-left: 5px;
+    font-family: monospace;
+}
+
+.fractal-instructions {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Adaptation Mobile */
+@media (max-width: 900px) {
+    #neon-container { height: 350px; }
 }

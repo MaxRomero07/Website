@@ -587,6 +587,78 @@ footer {
 }
 
 /* ==========================
+   STYLE ANIMATION FRACTALE
+========================== */
+#fractal-section {
+    text-align: center;
+    margin: 80px 0;
+}
+
+#fractal-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 500px; /* Hauteur de l'encadré */
+    margin: 0 auto;
+    border: 3px solid var(--primary);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    background-color: #000;
+    overflow: hidden; /* Important pour WebGL */
+    cursor: crosshair;
+}
+
+/* Le canvas créé par JS prendra toute la place du conteneur */
+#fractal-container canvas {
+    display: block;
+    outline: none;
+}
+
+.fractal-instructions {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.fractal-instructions span {
+    color: var(--primary);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+/* ==========================
+   ADAPTATION MOBILE (MEDIA QUERIES)
+========================== */
+
+/* Pour les Tablettes et petits ordinateurs */
+@media (max-width: 1024px) {
+    #fractal-container {
+        height: 400px; /* Un peu moins haut */
+        border-width: 2px;
+    }
+}
+
+/* Pour les Téléphones */
+@media (max-width: 768px) {
+    #fractal-section {
+        margin: 40px 0; /* Réduire l'espace vertical autour de la section */
+        padding: 0 15px;
+    }
+
+    #fractal-container {
+        height: 300px; /* Beaucoup moins haut pour voir le reste de la page */
+        border-radius: 8px; /* Coins moins ronds */
+    }
+
+    /* Ajustement du texte d'instruction */
+    .fractal-instructions {
+        font-size: 0.85rem;
+    }
+}
+
+/* ==========================
    BACKGROUNDS (Creature/Neurones)
 ========================== */
 
@@ -597,4 +669,44 @@ footer {
 @media (max-width: 900px) {
     #creature-wrapper { display: none !important; }
     #neural-bg { display: block !important; }
+}
+
+/* Style pour imiter LaTeX / Maths */
+.math-latex {
+    font-family: 'Times New Roman', Times, serif; /* Police standard des maths */
+    font-style: italic;
+    font-size: 1.3rem; /* Un peu plus gros pour la lisibilité */
+    font-weight: normal;
+    color: var(--primary); /* Cyan pour garder le thème néon */
+    letter-spacing: 1px;
+}
+
+/* Le chiffre 2 (exposant) et le + ne doivent pas être trop penchés idéalement, 
+   mais tout en italique passe bien pour cette formule simple. 
+   On ajuste juste la position du carré */
+.math-latex sup {
+    font-style: normal;
+    font-size: 0.8em;
+}
+
+#math-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Juste au-dessus du fond noir, mais sous le contenu */
+    pointer-events: none; /* Permet de cliquer à travers */
+    opacity: 1; /* Transparence pour rester subtil */
+}
+
+/* On s'assure que le contenu passe devant */
+main, header, footer {
+    position: relative;
+    z-index: 2;
+}
+
+/* Si vous avez une grille en fond, on la garde derrière ou on la supprime selon votre goût */
+body::before {
+    z-index: 1; /* La grille existante reste par dessus les symboles si vous voulez */
 }

@@ -4,9 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cours particuliers de Maths - Maxime Najac</title>
-  <link rel="stylesheet" href="cours-maths.css"> <!-- CSS principal -->
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/computer-modern-typeface@0.7.0/index.css">
+  <link rel="stylesheet" href="cours-maths.css"> 
 </head>
 <body>
+  <canvas id="math-canvas"></canvas>
   <header>
     <nav>
       <a href="index.html">← Retour à l'accueil</a>
@@ -124,11 +130,34 @@
       </table>
     </div>
 </section>
+
+
+
   
   <!-- Conteneur bouton centré -->
 <div class="btn-container">
-    <a href="mailto:maxime.najac31@gmail.com" class="btn-primary">Me contacter</a>
+    <a href="mailto:maxime.najac31@gmail.com?subject=Cours de maths" class="btn-primary">Me contacter</a>
   </div>
+
+
+  <section id="fractal-section">
+        <h2>Pause Mathématique : L'ensemble de Julia</h2>
+        <p style="margin-bottom: 20px; color: #b0b0b0; max-width: 800px; margin-left: auto; margin-right: auto;">
+    Une visualisation temps réel générée par les mathématiques. L'ensemble de Julia illustre la complexité émergeant d'une équation simple : 
+    <br>
+    <span class="math-latex">z = z<sup>2</sup> + c</span>
+</p>
+
+        <div id="fractal-container"></div>
+        
+        <p class="fractal-instructions">
+    <span>Interagissez :</span> Survolez ou touchez l'encadré pour modifier la forme.
+    <br>
+    <small>(Sur mobile : glissez le doigt dans le cadre pour explorer)</small>
+</p>
+    </section>
+
+    
   </main>
 
   <footer>
@@ -196,5 +225,499 @@
   window.dispatchEvent(new Event('scroll'));
 </script>
 
+<script type="x-shader/x-vertex" id="vertex-shader">
+    attribute vec2 position;
+    void main() {
+      gl_Position = vec4(position, 0.0, 1.0);
+    }
+  </script>
+
+  <script type="x-shader/x-fragment" id="fragment-shader">
+    precision mediump float;
+    #define ITER_MAX 250
+
+    uniform float width;
+    uniform float height;
+    uniform vec2 c0; 
+
+    void main(){
+      vec2 iResolution = vec2(width, height);
+      float zoom = 1.5; 
+      
+      // Calcul des coordonnées
+      vec2 z = (gl_FragCoord.xy - 0.5 * iResolution.xy) / min(width, height) * 2.0 * zoom;
+      
+      vec2 grad = vec2(1.0, 0.0);
+      float dist = min(abs(z.x), abs(z.y));
+      float thismin;
+      int k = 0;
+
+      // Boucle de l'ensemble de Julia
+      for (int kk = 0; kk < ITER_MAX; ++kk) {
+        grad = 2.0 * vec2(z.x * grad.x - z.y * grad.y, z.x * grad.y + z.y * grad.x);
+        z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + c0; 
+        
+        if (dot(z,z) > 4.0) break;
+        
+        thismin = abs(z.x)/length(grad);
+        if (thismin < dist) {
+          dist = thismin;
+          k = kk - (kk / 6) * 6;
+        }
+      }
+      
+      // --- C'EST ICI QUE LES COULEURS SONT DÉFINIES (VEC3 = R, G, B) ---
+      vec3 s;
+      
+      // Couleur 1 : Cyan (Votre couleur primaire)
+      if (k==0) s = vec3(0.0, 1.0, 1.0);
+      
+      // Couleur 2 : Magenta (Votre couleur secondaire)
+      else if (k==1) s = vec3(1.0, 0.0, 1.0);
+      
+      // Couleur 3 : Violet Profond (Pour le contraste)
+      else if (k==2) s = vec3(0.5, 0.0, 1.0);
+      
+      // Couleur 4 : Bleu Électrique
+      else if (k==3) s = vec3(0.0, 0.4, 1.0);
+      
+      // Couleur 5 : Blanc (Pour les zones de "lumière")
+      else if (k==4) s = vec3(1.0, 1.0, 1.0);
+      
+      // Couleur par défaut : Bleu Nuit très sombre
+      else s = vec3(0.05, 0.05, 0.2);
+
+      float lineWidth = 0.003;
+      float color = 1.0 - smoothstep(lineWidth, lineWidth + 0.005, dist);
+      
+      gl_FragColor = vec4(s * color, 1.0); 
+    }
+  </script>
+
+<script>
+    "use strict";
+
+    // --- 1. VARIABLES GLOBALES ---
+    let canv, gl;         // Canvas WebGL (Animation Fractale)
+    let overlay, ctx2d;   // Canvas 2D (Axes et Texte)
+    
+    let maxx, maxy;
+    let widthHandle, heightHandle, c0Handle;
+    let mousePos = {x: 0, y: 0}; 
+    let reqCoords = false;
+
+    // --- 2. FONCTIONS UTILITAIRES WEBGL ---
+    function compileShader(shaderSource, shaderType) {
+      let shader = gl.createShader(shaderType);
+      gl.shaderSource(shader, shaderSource);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error("Erreur compilation shader : " + gl.getShaderInfoLog(shader));
+        throw "Erreur shader";
+      }
+      return shader;
+    }
+
+    function initShadersStuff() {
+      const vScript = document.getElementById("vertex-shader");
+      const fScript = document.getElementById("fragment-shader");
+
+      if (!vScript || !fScript) {
+          console.error("Erreur : Shaders introuvables.");
+          return;
+      }
+
+      let vertexShader = compileShader(vScript.text, gl.VERTEX_SHADER);
+      let fragmentShader = compileShader(fScript.text, gl.FRAGMENT_SHADER);
+
+      let program = gl.createProgram();
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+      
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+          console.error("Erreur link program: " + gl.getProgramInfoLog(program));
+          return;
+      }
+
+      gl.useProgram(program);
+
+      let vertexData = new Float32Array([-1,1, -1,-1, 1,1, 1,-1]);
+      let vertexDataBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
+
+      let positionHandle = gl.getAttribLocation(program, "position");
+      gl.enableVertexAttribArray(positionHandle);
+      gl.vertexAttribPointer(positionHandle, 2, gl.FLOAT, false, 0, 0);
+
+      widthHandle = gl.getUniformLocation(program, "width");
+      heightHandle = gl.getUniformLocation(program, "height");
+      c0Handle = gl.getUniformLocation(program, "c0");
+    }
+
+    // --- 3. DESSIN DES AXES (NOUVELLE FONCTION) ---
+    function drawAxes() {
+        // On nettoie le calque de texte
+        ctx2d.clearRect(0, 0, maxx, maxy);
+        
+        const cx = maxx / 2;
+        const cy = maxy / 2;
+
+        // Configuration du style (Lignes blanches fines)
+        ctx2d.strokeStyle = "rgba(255, 255, 255, 0.3)"; 
+        ctx2d.lineWidth = 1;
+        
+        // Configuration du texte (Police Times / Couleur Cyan)
+        ctx2d.font = "italic 18px 'Times New Roman'";
+        ctx2d.fillStyle = "#00ffff"; 
+        
+        // Dessin Axe Y (Vertical)
+        ctx2d.beginPath();
+        ctx2d.moveTo(cx, 0);
+        ctx2d.lineTo(cx, maxy);
+        ctx2d.stroke();
+
+        // Dessin Axe X (Horizontal)
+        ctx2d.beginPath();
+        ctx2d.moveTo(0, cy);
+        ctx2d.lineTo(maxx, cy);
+        ctx2d.stroke();
+
+        // Label "Re(z)" à droite
+        ctx2d.textAlign = "right";
+        ctx2d.fillText("Re(z)", maxx - 15, cy - 10);
+
+        // Label "Im(z)" en haut
+        ctx2d.textAlign = "left";
+        ctx2d.fillText("Im(z)", cx + 10, 25);
+
+        // Label Origine "0"
+        ctx2d.fillStyle = "rgba(255,255,255,0.7)";
+        ctx2d.font = "14px 'Times New Roman'";
+        ctx2d.fillText("0", cx + 5, cy + 20);
+    }
+
+    // --- 4. GESTION TAILLE (MODIFIÉE) ---
+    function startOver() {
+      const container = document.getElementById("fractal-container");
+      if (!container) return false;
+
+      maxx = container.clientWidth;
+      maxy = container.clientHeight;
+      
+      // Redimensionnement du Canvas WebGL (Animation)
+      if (canv.width !== maxx || canv.height !== maxy) {
+          canv.width = maxx;
+          canv.height = maxy;
+      }
+      
+      // Redimensionnement du Canvas Overlay (Axes)
+      // C'est ici qu'on s'assure que les textes restent nets
+      if (overlay.width !== maxx || overlay.height !== maxy) {
+          overlay.width = maxx;
+          overlay.height = maxy;
+          drawAxes(); // On redessine les axes immédiatement
+      }
+      
+      if (Math.min(maxx, maxy) < 10) return false;
+
+      // Init souris au centre
+      if (mousePos.x === 0 && mousePos.y === 0) {
+        mousePos.x = maxx * 0.5;
+        mousePos.y = maxy * 0.5;
+      }
+
+      gl.viewport(0, 0, maxx, maxy);
+      gl.uniform1f(widthHandle, maxx);
+      gl.uniform1f(heightHandle, maxy);
+
+      return true;
+    }
+
+    // --- 5. BOUCLE D'ANIMATION ---
+    let animState = 0;
+    let prevc0 = [-1000, -1000];
+
+    function animate(tStamp) {
+        if (animState === 0) {
+            if (startOver()) animState++;
+        }
+
+        if (animState === 1) {
+            let xymin = Math.min(maxx, maxy) / 2;
+            if (xymin === 0) xymin = 1; 
+
+            let c0x = (mousePos.x - maxx / 2) / xymin;
+            let c0y = (maxy / 2 - mousePos.y) / xymin;
+            
+            if (Math.abs(c0x - prevc0[0]) > 0.001 || Math.abs(c0y - prevc0[1]) > 0.001 || reqCoords) {
+                prevc0 = [c0x, c0y];
+                reqCoords = false;
+                
+                gl.uniform2f(c0Handle, c0x, c0y);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    // --- 6. INTERACTIONS ---
+    function getRelativeMousePos(event) {
+        const rect = canv.getBoundingClientRect();
+        return {
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top
+        };
+    }
+
+    function mouseMove(event) {
+      const pos = getRelativeMousePos(event);
+      mousePos.x = pos.x;
+      mousePos.y = pos.y;
+    }
+
+    function touchStart(event) {
+      if (event.touches.length != 1) return;
+      event.preventDefault(); 
+      const rect = canv.getBoundingClientRect();
+      mousePos.x = event.touches[0].clientX - rect.left;
+      mousePos.y = event.touches[0].clientY - rect.top;
+    }
+
+    function keyDown(event) {
+        let dx = 0, dy = 0;
+        switch (event.key) {
+            case "ArrowUp": dy = -1; break;
+            case "ArrowDown": dy = +1; break;
+            case "ArrowRight": dx = 1; break;
+            case "ArrowLeft": dx = -1; break;
+            default: return;
+        }
+        reqCoords = true;
+        if (event.shiftKey) { dx /= 10; dy /= 10; }
+        event.preventDefault(); 
+        mousePos.x += dx * 10; 
+        mousePos.y += dy * 10;
+    }
+
+    // --- 7. INITIALISATION ---
+    window.addEventListener('load', () => {
+        const container = document.getElementById("fractal-container");
+        if (container) {
+            // A. Création du Canvas WebGL (Fond)
+            canv = document.createElement("canvas");
+            canv.style.position = "absolute";
+            canv.style.top = "0";
+            canv.style.left = "0";
+            canv.style.width = "100%";
+            canv.style.height = "100%";
+            container.appendChild(canv);
+            
+            // B. Création du Canvas Overlay (Axes) - NOUVEAU
+            overlay = document.createElement("canvas");
+            overlay.style.position = "absolute";
+            overlay.style.top = "0";
+            overlay.style.left = "0";
+            overlay.style.width = "100%";
+            overlay.style.height = "100%";
+            // Important : Permet de cliquer "à travers" les axes pour interagir avec la fractale
+            overlay.style.pointerEvents = "none"; 
+            container.appendChild(overlay);
+
+            // Contextes
+            gl = canv.getContext("webgl") || canv.getContext("experimental-webgl");
+            ctx2d = overlay.getContext("2d"); // Contexte pour dessiner le texte
+
+            if (!gl) {
+                container.innerHTML = "<p style='color:white; padding:20px;'>WebGL non supporté.</p>";
+                return;
+            }
+
+            // Événements (sur le canvas du fond car l'overlay est 'transparent')
+            canv.addEventListener("mousemove", mouseMove);
+            canv.addEventListener("touchstart", touchStart, {passive: false});
+            canv.addEventListener("touchmove", touchStart, {passive: false});
+            
+            window.addEventListener("resize", () => { 
+                animState = 0; 
+            });
+            
+            document.addEventListener("keydown", (e) => {
+                 if(document.activeElement === document.body) keyDown(e);
+            });
+
+            try {
+                initShadersStuff();
+                requestAnimationFrame(animate);
+            } catch (e) {
+                console.error("Erreur critique WebGL:", e);
+            }
+        } else {
+            console.error("Le conteneur #fractal-container n'existe pas.");
+        }
+    });
+  </script>
+
+
+<script>
+(function() {
+    const canvas = document.getElementById('math-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let width, height;
+    let symbols = [];
+
+   // Configuration
+const symbolCount = 75; 
+
+// Liste enrichie de symboles Mathématiques, Physiques & Formules
+const characters = [
+    // --- Analyse & Calcul Avancé ---
+    '∫', '∬', '∭', '∮', '∯', '∰', // Intégrales
+    '∑', '∏', '∂', '∇', '∆', 'δ', // Opérateurs
+    'lim', 'dx', 'dy', 'dt', 'dz', // Différentielles
+    '→', '↦', '∞', '′', '″', '‴',  // Dérivées
+
+    // --- Constantes & Lettres Grecques ---
+    'π', 'e', 'i', 'τ', 'φ', 'Φ', 
+    'α', 'β', 'γ', 'Γ', 'θ', 'Θ', 
+    'λ', 'Λ', 'μ', 'ν', 'ξ', 'Ξ', 
+    'ρ', 'σ', 'Σ', 'ω', 'Ω', 'Ψ', 
+    'ε', 'η', 'ζ', 'χ', 'υ',      
+
+    // --- Ensembles, Logique & Topologie ---
+    'ℝ', 'ℂ', 'ℕ', 'ℤ', 'ℚ', 'ℍ', // Ensembles
+    '∅', '∀', '∃', '∄', '∴', '∵', // Logique
+    '∈', '∉', '⊂', '⊃', '⊆', '⊇', // Inclusion
+    '∪', '∩', '∖', '∁', '∧', '∨', // Opérations
+    '¬', '⇒', '⇔', '⊻', '⊥', '⊤', // Booléens
+
+    // --- Algèbre Linéaire & Opérateurs ---
+    '≠', '≈', '≡', '≅', '∝',      
+    '≤', '≥', '≪', '≫',           
+    '±', '∓', '√', '∛',           
+    '×', '⋅', '∘', '∗', '⊕', '⊗', 
+    '‖', '⟨', '⟩',                
+
+    // --- Symboles "Savant" & Physique Quantique ---
+    'f(x)', 'g(x)', 'P(A)',       
+    'ℵ', 'ℶ', 'ℜ', 'ℑ',           
+    'ℏ', 'ℓ', '℘',                
+    'ℒ', 'ℋ', 'ℱ',                
+    '†', '∂/∂x',                  
+
+    // --- NOUVEAU : Formules & Équations Célèbres ---
+    'A=PDP⁻¹',       // Diagonalisation (Algèbre)
+    'Ax=λx',         // Valeurs propres
+    'E=mc²',         // Relativité
+    'exp(iπ)=-1',       // Identité d'Euler
+    'F=ma',          // Newton
+    'ΔxΔp≥ℏ/2',      // Heisenberg (Incertitude)
+    'iℏ∂/∂t',        // Schrödinger (Opérateur)
+    '∇⋅B=0',         // Maxwell (Magnétisme)
+    'pV=nRT',        // Gaz parfaits
+    'a²+b²=c²',      // Pythagore
+    'det(A)≠0'       // Matrice inversible
+];
+   // Version vibrante de ta couleur
+const colors = ['#ffaa33'];
+    
+    class MathSymbol {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            // Profondeur (z) pour effet de parallaxe
+            this.z = Math.random() * 0.5 + 0.5; 
+            
+            this.char = characters[Math.floor(Math.random() * characters.length)];
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // --- MODIFICATION TAILLE ICI ---
+            // Taille entre 25px et 65px (nettement plus gros)
+            this.size = Math.random() * 20 + 18;
+            
+            // Vitesse
+            this.speed = (Math.random() * 0.4 + 0.1) * this.z; 
+            
+            // Opacité (0.05 à 0.25) -> Subtil mais visible
+            this.opacity = Math.random() * 0.2 + 0.05; 
+        }
+
+        update() {
+            this.y -= this.speed * 7; // Monte vers le haut
+            this.x += Math.sin(this.y * 0.005) * 0.3; // Oscillation lente
+
+            // Reset quand ça sort de l'écran (haut)
+            if (this.y < -100) {
+                this.y = height + 100;
+                this.x = Math.random() * width;
+                this.resetProps(); // Change de symbole/couleur pour varier
+            }
+        }
+        
+        // Petite fonction pour varier les plaisirs sans changer la position
+        resetProps() {
+            this.char = characters[Math.floor(Math.random() * characters.length)];
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.size = Math.random() * 20 + 18;
+            this.speed = (Math.random() * 0.4 + 0.1) * this.z;
+        }
+
+        draw() {
+            // --- MODIFICATION POLICE ICI ---
+            // Utilisation de "Computer Modern Serif" (La police LaTeX)
+            // Fallback sur "Times New Roman" si le chargement échoue
+            ctx.font = `italic ${this.size * this.z}px 'Computer Modern Serif', 'Times New Roman', serif`;
+            
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = this.opacity;
+            ctx.textAlign = "center";
+            ctx.fillText(this.char, this.x, this.y);
+            ctx.globalAlpha = 1.0; 
+        }
+    }
+
+    function init() {
+        resize();
+        window.addEventListener('resize', resize);
+        
+        // Attendre que la police soit chargée pour éviter le saut (optionnel mais mieux)
+        document.fonts.ready.then(function () {
+             for (let i = 0; i < symbolCount; i++) {
+                symbols.push(new MathSymbol());
+            }
+            animate();
+        });
+    }
+
+    function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        symbols.forEach(symbol => {
+            symbol.update();
+            symbol.draw();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    init();
+})();
+</script>
+
+</body>
+</html>
 </body>
 </html>

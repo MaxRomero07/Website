@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="cours-informatique.css"> <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+    
+  </div>
+    <div id="animation-wrapper">
+    <div id="circle"></div>
+  </div>
   <header>
     <nav>
       <a href="index.html">← Retour à l'accueil</a>
@@ -25,6 +30,7 @@
             <div class="cpge-images">
                 <img src="./assets/logo-python.png" alt="Python">
                 <img src="./assets/logo-sql.png" alt="SQL">
+                <img src="./assets/logo-ocaml.png" alt="OCaml">
             </div>
             
             <div class="cpge-text">
@@ -81,6 +87,30 @@
             </div>
         </div>
     </section>
+
+
+    <section id="demo-technique">
+    <h2>Démonstration Technique</h2>
+    <div class="demo-content">
+        <div class="demo-text">
+            <h3>Génération Procédurale (Three.js)</h3>
+            <p>
+                Cette galaxie est générée mathématiquement en temps réel via JavaScript (WebGL). 
+                <br>
+                <strong>Interagissez avec la souris :</strong> Cliquez et glissez pour tourner, scrollez pour zoomer.
+            </p>
+            <ul class="tech-stack">
+                <li>JavaScript ES6</li>
+                <li>Three.js</li>
+                <li>WebGL</li>
+            </ul>
+        </div>
+        
+        <div id="canvas-container" class="glass-card">
+            <canvas class="webgl"></canvas>
+        </div>
+    </div>
+</section>
   
     <section id="tarifs" class="fade-in">
         <h2 class="section-title">Tarifs</h2>
@@ -126,7 +156,7 @@
     </section>
   
     <div class="btn-container">
-        <a href="mailto:maxime.najac31@gmail.com" class="btn-primary">Demander un cours</a>
+        <a href="mailto:contact@maximenajac.fr?subject=Cours d'informatique" class="btn-primary">Me contacter</a>
     </div>
   </main>
 
@@ -137,7 +167,7 @@
             <ul>
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="#tarifs">Tarifs</a></li>
-                <li><a href="mailto:maxime.najac31@gmail.com">Contact</a></li>
+                <li><a href="contact@maximenajac.fr">Contact</a></li>
             </ul>
         </div>
 
@@ -180,6 +210,83 @@
     });
   });
   window.dispatchEvent(new Event('scroll'));
+</script>
+<script type="module" src="galaxy.js"></script>
+<script type="module">
+    import { animate, createTimer, utils } from 'https://esm.sh/animejs';
+
+    const $animationWrapper = document.querySelector('#animation-wrapper');
+    const $circle = document.querySelector('#circle');
+    
+    // --- CONFIGURATION AJUSTÉE ---
+    const rows = 10; 
+    // J'ai réduit les rayons pour coller à la nouvelle taille CSS
+    const baseRadius = 30;   // Très serré autour de la souris (Avant: 60)
+    const activeRadius = 60; // S'écarte un peu au clic (Avant: 110)
+    // -----------------------------
+    
+    const pointer = {x: 0, y: 0, isDown: false, radius: baseRadius};
+    const viewport = {w: window.innerWidth * 0.5, h: window.innerHeight * 0.5};
+
+    const radiusTimeOut = createTimer({
+        duration: 150,
+        onComplete: () => pointer.radius = baseRadius
+    });
+
+    function animateParticule($el) {
+        createTimer({
+            frameRate: 4,
+            onUpdate: () => {
+                const angle = Math.random() * Math.PI * 2;
+                const radius = pointer.isDown ? activeRadius : baseRadius;
+                
+                animate($el, {
+                    x: { to: (Math.cos(angle) * radius) + pointer.x, duration: () => utils.random(1000, 2000) },
+                    y: { to: (Math.sin(angle) * radius) + pointer.y, duration: () => utils.random(1000, 2000) },
+                    scale: 0.5 + utils.random(0.1, 0.8),
+                    opacity: { to: utils.random(0.1, 0.5), duration: 500 },
+                    duration: () => utils.random(1000, 1500),
+                    ease: `inOut(${utils.random(1, 5)})`,
+                    composition: 'blend'
+                });
+            }
+        })
+    }
+
+    document.addEventListener('mousemove', e => {
+        // Utilisation de clientX pour le positionnement fixe
+        pointer.x = e.clientX - viewport.w;
+        pointer.y = e.clientY - viewport.h;
+        pointer.radius = (pointer.isDown ? activeRadius : baseRadius * 1.25);
+        radiusTimeOut.restart();
+        utils.set($circle, { translateX: pointer.x, translateY: pointer.y });
+    });
+
+    document.addEventListener('mousedown', e => {
+        pointer.isDown = true;
+        animate($circle, { scale: 0.8, opacity: 0.6, filter: 'brightness(1.5)' }); // Opacité réduite
+    });
+
+    document.addEventListener('mouseup', e => {
+        pointer.isDown = false;
+        animate($circle, { scale: 1, opacity: 0.25, filter: 'brightness(1)' }); // Retour à l'opacité CSS
+    });
+
+    const colors = ['#d69656', '#ffbd7a', '#ffffff']; 
+
+    for (let i = 0; i < (rows * rows); i++) {
+        const $particle = document.createElement('div');
+        $particle.classList.add('particle');
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        utils.set($particle, { color: color });
+        $animationWrapper.appendChild($particle);
+        animateParticule($particle);
+    }
+    
+    window.addEventListener('resize', () => {
+        viewport.w = window.innerWidth * 0.5;
+        viewport.h = window.innerHeight * 0.5;
+    });
 </script>
 
 </body>

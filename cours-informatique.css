@@ -371,3 +371,158 @@ footer {
     .footer-content { text-align: center; }
     .social-links { justify-content: center; }
 }
+
+/* ==========================
+   SECTION DÉMO TECHNIQUE
+========================== */
+#demo-technique {
+    margin-bottom: 5rem;
+}
+
+.demo-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.demo-text {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.demo-text p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.tech-stack {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+}
+
+.tech-stack li {
+    background: rgba(214, 150, 86, 0.1);
+    color: var(--primary);
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+    font-size: 0.9rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* LE CONTENEUR 3D */
+#canvas-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    height: 400px; /* Hauteur fixe pour l'encadré */
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden; /* Important pour que le canvas ne dépasse pas */
+    border: 1px solid rgba(214, 150, 86, 0.3);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    background: #000;
+}
+
+#canvas-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab; /* Curseur main ouverte */
+}
+
+#canvas-container canvas:active {
+    cursor: grabbing; /* Curseur main fermée au clic */
+}
+
+/* ==========================
+   ANIMATION SOURIS (CORRIGÉE & RÉDUITE)
+========================== */
+
+#animation-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* C'EST ICI QUE TOUT SE JOUE : */
+    font-size: 5px; /* Réduit la taille globale de l'effet */
+    pointer-events: none;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: var(--primary); 
+}
+
+/* On s'assure que le contenu principal passe au-dessus */
+main, header, footer {
+    position: relative;
+    z-index: 10; 
+}
+
+#circle {
+    opacity: 0.1; /* Un peu plus transparent pour être discret */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* On réduit drastiquement la taille du halo */
+    width: 10em; 
+    height: 10em;
+    margin: -5em 0 0 -5em;
+    border-radius: 50%;
+    will-change: transform, opacity;
+}
+
+#circle:before, #circle:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+}
+
+#circle:before {
+    z-index: 1;
+    opacity: 1;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    
+    /* MODIFICATION 3 : L'effet de Halo (Glow) réduit */
+    /* J'ai divisé les valeurs par 3 pour que ça ne "bave" pas */
+    box-shadow: inset 0px 0px 5em 0px currentColor, 
+                0px 0px 2em 1px currentColor;
+}
+
+/* OPTIONNEL : Supprimer ou réduire drastiquement le halo externe */
+#circle:after {
+    display: none; /* Cela supprime le 2ème halo pour un effet très net */
+}
+
+.particle {
+    opacity: 0.4;
+    position: absolute;
+    z-index: 2;
+    top: 50%; left: 50%;
+    /* Particules beaucoup plus fines */
+    width: 1em; 
+    height: 1em; 
+    margin: -0.75em 0 0 -0.75em;
+    border-radius: 50%;
+    will-change: transform;
+    mix-blend-mode: screen;
+    background: currentColor;
+    /* Halo de particule réduit */
+    box-shadow: 0px 0px 4em 0px currentColor; 
+}
