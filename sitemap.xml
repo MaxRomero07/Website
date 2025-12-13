@@ -17,7 +17,7 @@
   </image:image>
 
   <image:image>
-    <image:loc>https://maximenajac.fr/assets/maxime-najac-contact.png</image:loc>
+    <image:loc>https://maximenajac.fr/assets/maxime-najac-contact2.png</image:loc>
     <image:title>Maxime Najac - Contact</image:title>
     <image:caption>Contact Maxime Najac - Cours particuliers et Consulting IA</image:caption>
   </image:image>
@@ -39,7 +39,7 @@
 </url>
 
 <url>
-  <loc>https://maximenajac.fr/cours-info.html</loc>
+  <loc>https://maximenajac.fr/cours-informatique.html</loc>
   <priority>0.80</priority>
 </url>
 
