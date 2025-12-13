@@ -28,8 +28,14 @@
 /* ==========================
    STRUCTURE DE BASE
 ========================== */
-html, body {
+/* ==========================
+   STRUCTURE DE BASE
+========================== */
+html {
     height: 100%;
+    /* CORRECTION CRUCIALE : On donne au HTML la couleur sombre du fond galaxie (#080514)
+       pour éviter la barre blanche en bas sur mobile */
+    background-color: #080514; 
 }
 
 body {
@@ -37,12 +43,15 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-family: 'Exo 2', sans-serif;
-    background-color: var(--bg-dark);
+    
+    /* On garde la transparence ici pour voir le layer #particles-js */
+    background-color: transparent; 
+    
     color: var(--text-primary);
     line-height: 1.6;
-    overflow-x: hidden; /* Crucial pour éviter le scroll horizontal */
+    overflow-x: hidden;
     position: relative;
-    width: 100%; /* S'assure que le body ne dépasse pas */
+    width: 100%;
 }
 
 /* ==========================

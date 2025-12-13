@@ -532,19 +532,24 @@ footer {
 /* ==========================
    RESPONSIVE DESIGN
 ========================== */
+/* ==========================
+   ADAPTATION MOBILE (MEDIA QUERIES)
+   À REMPLACER À LA FIN DE VOTRE FICHIER
+========================== */
 @media (max-width: 900px) {
-    /* Header */
+    /* 1. Ajustement Header */
     .page-title {
-        font-size: 1.5rem; /* Ajusté pour mobile */
+        font-size: 1.5rem;
+        margin-top: 20px;
     }
     main h2 {
-        font-size: 1.1rem; /* Ajusté pour mobile */
+        font-size: 1.1rem;
     }
     header nav {
         padding: 15px 20px;
     }
 
-    /* Sections */
+    /* 2. Sections Générales */
     .cpge-section, .uni-section {
         flex-direction: column; 
         text-align: center;
@@ -556,25 +561,45 @@ footer {
         padding: 0 10px;
     }
 
-    /* Images */
-    .uni-images, .cpge-images {
-        flex-direction: column;
+    /* --- 3. MODIFICATION SPÉCIALE POUR LES LOGOS MATHS (3+1) --- */
+    .cpge-images {
+        display: flex;
+        flex-direction: row;     /* On remet en ligne */
+        flex-wrap: wrap;         /* On autorise le passage à la ligne */
+        justify-content: center; /* On centre le tout */
+        gap: 10px;               /* Petit écart */
+        width: 100%;
+    }
+
+    .cpge-images img {
+        /* 28% permet d'en mettre 3 par ligne (3x28 = 84%), le 4ème passera dessous */
+        width: 28%;              
+        max-width: 100px;
+        height: auto;
+        margin-bottom: 5px;
+    }
+
+    /* --- 4. GESTION DES LOGOS UNIVERSITAIRES (On garde en colonne car ils sont larges) --- */
+    .uni-images {
+        display: flex;
+        flex-direction: column; /* Colonne pour les universités */
+        align-items: center;
         gap: 20px;
         width: 100%;
     }
     
     .uni-images img {
+        width: 100%; 
+        max-width: 350px; /* Taille confortable pour lire le texte des logos */
         height: auto; 
     }
 
-    /* Tableaux */
+    /* 5. Tableaux & Footer */
     .table-tarifs th,
     .table-tarifs td {
         font-size: 14px;
         padding: 10px;
     }
-
-    /* Footer */
     .footer-section:last-child {
         text-align: center;
     }
@@ -584,6 +609,10 @@ footer {
     footer {
         padding: 40px 20px 20px;
     }
+
+    /* 6. Backgrounds */
+    #creature-wrapper { display: none !important; }
+    #neural-bg { display: block !important; }
 }
 
 /* ==========================
