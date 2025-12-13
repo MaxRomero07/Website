@@ -50,12 +50,32 @@
 
 <url>
   <loc>https://maximenajac.fr/projets-raytracing.html</loc>
-  <priority>0.80</priority>
+  <priority>0.60</priority>
 </url>
 
 <url>
   <loc>https://maximenajac.fr/sport.html</loc>
   <priority>0.80</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/stages-noel.html</loc>
+  <priority>0.90</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/nanotech.html</loc>
+  <priority>0.60</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/cryptography.html</loc>
+  <priority>0.60</priority>
+</url>
+
+<url>
+  <loc>https://maximenajac.fr/kundt_tube.html</loc>
+  <priority>0.60</priority>
 </url>
 
 </urlset>
