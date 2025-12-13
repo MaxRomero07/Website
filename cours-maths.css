@@ -710,3 +710,132 @@ main, header, footer {
 body::before {
     z-index: 1; /* La grille existante reste par dessus les symboles si vous voulez */
 }
+
+/* ==========================
+   SECTION PHILOSOPHIE
+========================== */
+.philosophy-section {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 30px 40px;
+    
+    /* Fond sombre légèrement transparent comme vos cartes */
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.05) 0%, rgba(26, 26, 26, 0.6) 100%);
+    border-left: 4px solid var(--primary); /* Bordure Cyan à gauche */
+    border-radius: 0 12px 12px 0; /* Arrondi seulement à droite */
+    
+    /* Légère ombre néon */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet au survol */
+.philosophy-section:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.08) 0%, rgba(26, 26, 26, 0.8) 100%);
+    transform: translateX(5px); /* Petit mouvement vers la droite */
+}
+
+/* Titre de la section */
+.philosophy-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+/* Sous-titre (Pas de recettes magiques...) */
+.philosophy-subtitle {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.15rem;
+    color: var(--text-primary); /* Blanc */
+    margin-bottom: 15px;
+}
+
+.philosophy-subtitle strong {
+    color: var(--secondary); /* Magenta pour l'avertissement */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Texte principal */
+.philosophy-content {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-secondary); /* Gris clair */
+}
+
+.philosophy-content strong {
+    color: var(--primary); /* Mots clés en Cyan */
+    font-weight: 700;
+}
+
+/* Adaptation Mobile */
+@media (max-width: 768px) {
+    .philosophy-section {
+        margin: 40px 20px;
+        padding: 20px;
+        border-left: 3px solid var(--primary);
+    }
+    .philosophy-title {
+        font-size: 1.2rem;
+    }
+}
+/* Style pour l'encart CESU */
+.cesu-container {
+    max-width: 600px; /* Même largeur que le tableau pour l'alignement */
+    margin: 25px auto 0;
+    padding: 20px;
+    background: linear-gradient(90deg, rgba(255, 0, 255, 0.05) 0%, rgba(26, 26, 26, 0.8) 100%);
+    border: 1px solid var(--secondary); /* Bordure Magenta */
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+}
+
+.cesu-container:hover {
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.2);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+.cesu-icon {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--secondary);
+    min-width: 50px;
+    text-align: center;
+}
+
+.cesu-content h4 {
+    color: var(--secondary);
+    margin-bottom: 5px;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+.cesu-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+}
+
+.cesu-example {
+    color: var(--primary) !important; /* Exemple en Cyan */
+    font-weight: bold;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .cesu-container { flex-direction: column; text-align: center; }
+}
